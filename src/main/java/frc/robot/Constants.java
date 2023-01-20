@@ -139,6 +139,11 @@ public final class Constants {
       }
       public static final class ArmConstants{
         public static final int kArmMotorCanID = 2;
+        public static final double kArmP = 0;
+        public static final double kArmI = 0;
+        public static final double kArmD = 0;
+        public static final double kArmF = 1;
+
       }
 
 }

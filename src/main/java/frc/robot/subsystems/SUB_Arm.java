@@ -4,16 +4,49 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxPIDController;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+import frc.robot.Constants.ArmConstants;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class SUB_Arm extends SubsystemBase {
-  /** Creates a new SUB_Arm. */
-  public SUB_Arm() {
-    
+  private final CANSparkMax m_armMotor;
+  private final SparkMaxPIDController m_armMotorPIDController;
+  private final RelativeEncoder m_armEncoder;
+
+    public SUB_Arm() {
+      m_armMotor = new CANSparkMax(ArmConstants.kArmMotorCanID, MotorType.kBrushless);
+      m_armMotorPIDController = m_armMotor.getPIDController();
+      m_armEncoder = m_armMotor.getEncoder();
+  }
+
+  public void setPosition(double position){
+
+  }
+
+  public void setArmOn(){
+    m_armMotor.set(.1);
+  }
+
+  public void setArmOff(){
+    m_armMotor.set(0);
+  }
+
+  public void setArmReverse(){
+    m_armMotor.set(-.1);
   }
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    // updates arm telemetry
+    telemetry();
+  }
+
+  public void telemetry(){
+    SmartDashboard.putNumber("Arm Position", m_armEncoder.getPosition());
   }
 }

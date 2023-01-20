@@ -21,15 +21,18 @@ public class SUB_Intake extends SubsystemBase {
   }
 
   public void setIntakeForward(){
-    m_intakeMotorPIDController.setReference(IntakeConstants.kIntakeForward, CANSparkMax.ControlType.kVelocity);
+    // m_intakeMotorPIDController.setReference(IntakeConstants.kIntakeForward, CANSparkMax.ControlType.kVelocity);
+    m_intakeMotor.set(.15);
   }
 
   public void setIntakeOff(){
-    m_intakeMotorPIDController.setReference(0, CANSparkMax.ControlType.kVelocity);
+    // m_intakeMotorPIDController.setReference(0, CANSparkMax.ControlType.kVelocity);
+    m_intakeMotor.set(0);
   }
 
   public void setIntakeReverse(){
-    m_intakeMotorPIDController.setReference(-IntakeConstants.kIntakeForward, CANSparkMax.ControlType.kVelocity);
+    // m_intakeMotorPIDController.setReference(-IntakeConstants.kIntakeForward, CANSparkMax.ControlType.kVelocity);
+    m_intakeMotor.set(-.1);
   }
 
   @Override

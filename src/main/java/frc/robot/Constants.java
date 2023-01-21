@@ -112,7 +112,11 @@ public final class Constants {
                 new Translation2d(kWheelBase / 2, -kTrackWidth / 2),
                 new Translation2d(-kWheelBase / 2, kTrackWidth / 2),
                 new Translation2d(-kWheelBase / 2, -kTrackWidth / 2)); 
-     
+
+    }
+
+    public static final class BlinkinConstants{
+      public static final double sky_blue = .83;
     }
     
     public static final class AutoConstants {

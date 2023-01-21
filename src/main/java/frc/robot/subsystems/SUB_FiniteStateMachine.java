@@ -4,12 +4,15 @@
 
 package frc.robot.subsystems;
 
+
 public class SUB_FiniteStateMachine {
 
     public enum RobotState 
     {
         HOME,
-        
+        INTAKING,
+        INTAKED,
+        SCORING,
     }
 
     private RobotState m_currentState = RobotState.HOME;
@@ -29,5 +32,5 @@ public class SUB_FiniteStateMachine {
     public RobotState getCurrentState(){
         return m_currentState;
     }
-    
+
 }

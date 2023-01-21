@@ -8,16 +8,25 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import frc.robot.Constants.IntakeConstants;
+import frc.robot.subsystems.SUB_FiniteStateMachine.RobotState;
+import edu.wpi.first.wpilibj.DigitalInput;
+import frc.robot.Constants.BlinkinConstants;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class SUB_Intake extends SubsystemBase {
     private final CANSparkMax m_intakeMotor;
     private final SparkMaxPIDController m_intakeMotorPIDController;
+    private final DigitalInput m_sensor;
+    private final SUB_FiniteStateMachine m_finiteStateMachine;
+    private final SUB_Blinkin m_blinkin;
   /** Creates a new SUB_Intake. */
-  public SUB_Intake() {
+  public SUB_Intake(SUB_FiniteStateMachine p_finiteStateMachine, SUB_Blinkin p_blinkin) {
     m_intakeMotor = new CANSparkMax(IntakeConstants.kIntakeMotorCanID, MotorType.kBrushless);
     m_intakeMotorPIDController = m_intakeMotor.getPIDController();
+    m_sensor = new DigitalInput(1);
+    m_finiteStateMachine = p_finiteStateMachine;
+    m_blinkin = p_blinkin;
   }
 
   public void setIntakeForward(){
@@ -36,7 +45,9 @@ public class SUB_Intake extends SubsystemBase {
   }
 
   @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
+  public void periodic(){
+    if(m_finiteStateMachine.getState() == RobotState.INTAKING){
+      m_blinkin.set(BlinkinConstants.sky_blue);
+    }
   }
 }

@@ -13,13 +13,15 @@ import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.PS4Controller.Button;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.*;
 import frc.robot.subsystems.SUB_Arm;
+import frc.robot.subsystems.SUB_Blinkin;
 import frc.robot.subsystems.SUB_Drivetrain;
+import frc.robot.subsystems.SUB_FiniteStateMachine;
 import frc.robot.subsystems.SUB_Intake;
+import frc.robot.subsystems.SUB_LimeLight;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
@@ -35,14 +37,17 @@ import java.util.List;
 public class RobotContainer {
   // The robot's subsystems
   private final SUB_Drivetrain m_robotDrive = new SUB_Drivetrain();
-  private final SUB_Intake m_intake = new SUB_Intake();
   private final SUB_Arm m_arm = new SUB_Arm();
+  private final SUB_Blinkin m_blinkin = new SUB_Blinkin();
+  private final SUB_FiniteStateMachine m_finiteStateMachine = new SUB_FiniteStateMachine();
+  private final SUB_Intake m_intake = new SUB_Intake(m_finiteStateMachine, m_blinkin);
+  private final SUB_LimeLight m_limeLight = new SUB_LimeLight(m_blinkin, m_finiteStateMachine);
   // The driver's controller
   XboxController m_driverController = new XboxController(0);
   XboxController m_operatorController = new XboxController(1);
 
   /**
-   * The container for the robot. Contains subsystems, OI devices, and commands.
+   * The container for the robot. Contains subsystems, IO devices, and commands.
    */
   public RobotContainer() {
     // Configure the button bindings
@@ -51,15 +56,7 @@ public class RobotContainer {
     // Configure default commands
     m_robotDrive.setDefaultCommand(new CMD_DriveCommand(m_robotDrive, m_driverController));  }
 
-  /**
-   * Use this method to define your button->command mappings. Buttons can be
-   * created by
-   * instantiating a {@link edu.wpi.first.wpilibj.GenericHID} or one of its
-   * subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then calling
-   * passing it to a
-   * {@link JoystickButton}.
-   */
+
   private void configureButtonBindings() {
 
     if(m_driverController.getLeftBumperPressed()){

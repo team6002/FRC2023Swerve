@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.PS4Controller.Button;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
-import frc.robot.commands.CMD_DriveCommand;
+import frc.robot.commands.*;
 import frc.robot.subsystems.SUB_Arm;
 import frc.robot.subsystems.SUB_Drivetrain;
 import frc.robot.subsystems.SUB_Intake;
@@ -39,6 +39,7 @@ public class RobotContainer {
   private final SUB_Arm m_arm = new SUB_Arm();
   // The driver's controller
   XboxController m_driverController = new XboxController(0);
+  XboxController m_operatorController = new XboxController(1);
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -60,10 +61,30 @@ public class RobotContainer {
    * {@link JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(m_driverController, Button.kR1.value)
-        .whileTrue(new RunCommand(
-            () -> m_robotDrive.setX(),
-            m_robotDrive));
+
+    if(m_driverController.getLeftBumperPressed()){
+      new CMD_IntakeForward(m_intake);
+    }
+    
+    if(m_driverController.getRightBumperPressed()){
+      new CMD_IntakeReverse(m_intake);
+    }
+
+    if(m_driverController.getBButtonPressed()){
+      new CMD_IntakeOff(m_intake);
+    }
+
+    if(m_driverController.getYButtonPressed()){
+      new CMD_ArmSetOn(m_arm);
+    }
+    
+    if(m_driverController.getAButtonPressed()){
+      new CMD_ArmSetReverse(m_arm);
+    }
+
+    if(m_driverController.getXButtonPressed()){
+      new CMD_ArmSetOff(m_arm);
+    }
   }
 
   /**

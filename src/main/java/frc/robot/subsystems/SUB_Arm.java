@@ -25,7 +25,7 @@ public class SUB_Arm extends SubsystemBase {
   }
 
   public void setPosition(double position){
-
+    m_armMotorPIDController.setReference(position, CANSparkMax.ControlType.kPosition);
   }
 
   public void setArmOn(){

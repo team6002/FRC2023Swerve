@@ -24,10 +24,10 @@ import frc.robot.subsystems.SUB_LimeLight;
  */
 public class RobotContainer {
   // The robot's subsystems
-  private final SUB_Drivetrain m_robotDrive = new SUB_Drivetrain();
   private final SUB_Arm m_arm = new SUB_Arm();
   private final SUB_Blinkin m_blinkin = new SUB_Blinkin();
   private final SUB_FiniteStateMachine m_finiteStateMachine = new SUB_FiniteStateMachine();
+  private final SUB_Drivetrain m_robotDrive = new SUB_Drivetrain(m_blinkin, m_finiteStateMachine);
   private final SUB_Intake m_intake = new SUB_Intake(m_finiteStateMachine, m_blinkin);
   private final SUB_LimeLight m_limeLight = new SUB_LimeLight(m_blinkin, m_finiteStateMachine);
   // The driver's controller

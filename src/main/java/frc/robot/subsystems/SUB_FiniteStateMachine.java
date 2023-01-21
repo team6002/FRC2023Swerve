@@ -13,6 +13,7 @@ public class SUB_FiniteStateMachine {
         INTAKING,
         INTAKED,
         SCORING,
+        BALANCING,
     }
 
     private RobotState m_currentState = RobotState.HOME;

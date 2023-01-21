@@ -10,9 +10,18 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.subsystems.SUB_FiniteStateMachine.RobotState;
 
+import frc.robot.Constants.LimeLightConstants;
 
 public class SUB_LimeLight extends SubsystemBase {
   SUB_Blinkin m_blinkin;
+  double[] target1 = LimeLightConstants.kTarget1Constants;
+  double[] target2 = LimeLightConstants.kTarget2Constants;
+  double[] target3 = LimeLightConstants.kTarget3Constants;
+  double[] target4 = LimeLightConstants.kTarget4Constants;
+  double[] target5 = LimeLightConstants.kTarget5Constants;
+  double[] target6 = LimeLightConstants.kTarget6Constants;
+  double[] target7 = LimeLightConstants.kTarget7Constants;
+  double[] target8 = LimeLightConstants.kTarget8Constants;
   SUB_FiniteStateMachine m_finiteStateMachine;
   public SUB_LimeLight(SUB_Blinkin p_blinkin, SUB_FiniteStateMachine p_finiteStateMachine) {
     m_blinkin = p_blinkin;
@@ -78,6 +87,10 @@ public class SUB_LimeLight extends SubsystemBase {
     return botpose[3];
   }
 
+  public double getTargetYaw(){
+    return botpose[4];
+  }
+
   public double getWantedX(){
     return wanted_x;
   }
@@ -89,6 +102,7 @@ public class SUB_LimeLight extends SubsystemBase {
   public double getWantedZ(){
     return wanted_z;
   }
+
   public double getWantedPitch(){
     return wanted_pitch;
   }
@@ -104,7 +118,43 @@ public class SUB_LimeLight extends SubsystemBase {
   public void setWantedZ(double p_wanted_z){
     wanted_z = p_wanted_z;
   }
+
   public void setWantedPitch(double p_wanted_pitch){
     wanted_pitch = p_wanted_pitch;
+  }
+
+  public double[] getRelativePosition(double targetID){
+    if(targetID == 1){
+      double[] relativePos = {getTargetX() + target1[0], getTargetY() + target1[1], getTargetYaw() + target1[2]};
+      return relativePos;
+    }
+    else if(targetID == 2){
+      double[] relativePos = {getTargetX() + target2[0], getTargetY() + target2[1], getTargetYaw() + target2[2]};
+      return relativePos;
+    }
+    if(targetID == 3){
+      double[] relativePos = {getTargetX() + target3[0], getTargetY() + target3[1], getTargetYaw() + target3[2]};
+      return relativePos;
+    }
+    else if(targetID == 4){
+      double[] relativePos = {getTargetX() + target4[0], getTargetY() + target4[1], getTargetYaw() + target4[2]};
+      return relativePos;
+    }
+    if(targetID == 5){
+      double[] relativePos = {getTargetX() + target6[0], getTargetY() + target6[1], getTargetYaw() + target5[2]};
+      return relativePos;
+    }
+    else if(targetID == 6){
+      double[] relativePos = {getTargetX() + target7[0], getTargetY() + target7[1], getTargetYaw() + target7[2]};
+      return relativePos;
+    }
+    if(targetID == 7){
+      double[] relativePos = {getTargetX() + target8[0], getTargetY() + target8[1], getTargetYaw() + target8[2]};
+      return relativePos;
+    }
+    else{
+      double[] relativePos = {getTargetX() + target1[0], getTargetY() + target1[1], getTargetYaw() + target1[2]};
+      return relativePos;
+    }
   }
 }

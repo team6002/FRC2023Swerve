@@ -10,7 +10,6 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.subsystems.SUB_FiniteStateMachine.RobotState;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DigitalOutput;
 import frc.robot.Constants.BlinkinConstants;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;

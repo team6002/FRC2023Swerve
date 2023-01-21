@@ -127,6 +127,17 @@ public final class Constants {
       public static final double kTippedBackFar = .87;
       public static final double kBalanced = 77;
     }
+
+    public static final class LimeLightConstants{
+      public static final double[] kTarget1Constants = {1, 1, 0};
+      public static final double[] kTarget2Constants = {2, 2, 0};
+      public static final double[] kTarget3Constants = {3, 3, 0};
+      public static final double[] kTarget4Constants = {4, 4, 0};
+      public static final double[] kTarget5Constants = {5, 5, 180};
+      public static final double[] kTarget6Constants = {6, 6, 180};
+      public static final double[] kTarget7Constants = {7, 7, 180};
+      public static final double[] kTarget8Constants = {8, 8, 180};
+    }
     
     public static final class AutoConstants {
         // public static final double kMaxSpeedMetersPerSecond = DriveConstants.kMaxSpeedMetersPerSecond;

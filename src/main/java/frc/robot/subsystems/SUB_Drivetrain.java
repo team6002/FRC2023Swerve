@@ -24,11 +24,13 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class SUB_Drivetrain extends SubsystemBase {
   // Create SwerveModules
   SUB_Blinkin m_blinkin;
+  SUB_LimeLight m_LimeLight;
   SUB_FiniteStateMachine m_finiteStateMachine;
   public boolean balanced = false;
   public double timer;
   public int wantedHeight;//wanted position for droppoff, integer from 1-3, 1 is bottom, 3 is top
   public int wantedLength;//wanted position for droppoff, integer from 1-3, 1 is far left, 3 is far right
+  public double[] relativeBotpose;
 
   private final SwerveModule m_frontLeft = new SwerveModule(
       DriveConstants.kFrontLeftDriveID,
@@ -64,9 +66,10 @@ public class SUB_Drivetrain extends SubsystemBase {
       });
 
   /** Creates a new SUB_Drivetrain. */
-  public SUB_Drivetrain(SUB_Blinkin p_blinkin, SUB_FiniteStateMachine p_finiteStateMachine) {
+  public SUB_Drivetrain(SUB_Blinkin p_blinkin, SUB_FiniteStateMachine p_finiteStateMachine, SUB_LimeLight p_limeLight) {
     m_blinkin = p_blinkin;
-    m_finiteStateMachine =p_finiteStateMachine;
+    m_finiteStateMachine = p_finiteStateMachine;
+    m_LimeLight = p_limeLight;
     m_navx.reset();
   }
 
@@ -113,6 +116,8 @@ public class SUB_Drivetrain extends SubsystemBase {
             timer = 2;
         }
       }
+     relativeBotpose = m_LimeLight.getRelativePosition(m_LimeLight.getTargetID());
+
 
         telemetry();
   }
@@ -120,6 +125,11 @@ public class SUB_Drivetrain extends SubsystemBase {
   public void telemetry(){
     SmartDashboard.putNumber("pitch", getPitch());
     SmartDashboard.putNumber("timer", timer);
+    SmartDashboard.putNumber("x", relativeBotpose[0]);
+    SmartDashboard.putNumber("y", relativeBotpose[1]);
+    SmartDashboard.putNumber("yaw", relativeBotpose[2]);
+    SmartDashboard.putNumber("raw x", getX());
+    SmartDashboard.putNumber("raw y", getY());
   }
 
   /**
@@ -129,6 +139,14 @@ public class SUB_Drivetrain extends SubsystemBase {
    */
   public Pose2d getPose() {
     return m_odometry.getPoseMeters();
+  }
+
+  public double getX(){
+    return m_odometry.getPoseMeters().getX();
+  }
+
+  public double getY(){
+    return m_odometry.getPoseMeters().getY();
   }
 
   public double getPitch(){

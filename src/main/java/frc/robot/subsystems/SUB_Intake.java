@@ -10,6 +10,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.subsystems.SUB_FiniteStateMachine.RobotState;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DigitalOutput;
 import frc.robot.Constants.BlinkinConstants;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -44,10 +45,15 @@ public class SUB_Intake extends SubsystemBase {
     m_intakeMotor.set(-.1);
   }
 
+  public boolean getSensor(){
+    return m_sensor.get();
+  }
+
   @Override
   public void periodic(){
-    if(m_finiteStateMachine.getState() == RobotState.INTAKING){
-      m_blinkin.set(BlinkinConstants.sky_blue);
+    // if we have a game piece, make the led strip sky blue colored
+    if(m_finiteStateMachine.getState() == RobotState.INTAKING && getSensor()){
+      m_blinkin.set(BlinkinConstants.kSkyBlue);
     }
   }
 }

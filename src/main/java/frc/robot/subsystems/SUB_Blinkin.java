@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
+import frc.robot.Constants.BlinkinConstants;;
 
 public class SUB_Blinkin extends SubsystemBase {
   Spark m_blinkin;
@@ -15,11 +16,35 @@ public class SUB_Blinkin extends SubsystemBase {
   }
 
   public void setHasTarget(){
-    m_blinkin.set(0.03);
+    m_blinkin.set(BlinkinConstants.kGreen);
   }
 
   public void setHasNoTarget(){
-    m_blinkin.set(.23);
+    m_blinkin.set(BlinkinConstants.kRedStrobe);
+  }
+
+  public void setHasNoGamePiece(){
+    m_blinkin.set(BlinkinConstants.kRed);
+  }
+
+  public void setCelebrate(){
+    m_blinkin.set(BlinkinConstants.kFireLarge);
+  }
+
+  public void setFrontFar(){
+    m_blinkin.set(BlinkinConstants.kTippedFrontFar);
+  }
+
+  public void setFront(){
+    m_blinkin.set(BlinkinConstants.kTippedFront);
+  }
+
+  public void setBackFar(){
+    m_blinkin.set(BlinkinConstants.kTippedBack);
+  }
+
+  public void setBack(){
+    m_blinkin.set(BlinkinConstants.kTippedBackFar);
   }
 
   public void set(double p_pwm){

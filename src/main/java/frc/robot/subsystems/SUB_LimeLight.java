@@ -18,6 +18,12 @@ public class SUB_LimeLight extends SubsystemBase {
     m_blinkin = p_blinkin;
     m_finiteStateMachine = p_finiteStateMachine;
   }
+  private double[] dv = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+  public double[] botpose;
+  public double wanted_x;
+  public double wanted_y;
+  public double wanted_z;
+  public double wanted_pitch;
 
   public CommandBase exampleMethodCommand() {
 
@@ -29,7 +35,7 @@ public class SUB_LimeLight extends SubsystemBase {
   @Override
   public void periodic() {
   SmartDashboard.putNumber("DO YOU SEE ANYTHING ", NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0));
-  
+  botpose =  NetworkTableInstance.getDefault().getTable("limelight").getEntry("camtran").getDoubleArray(dv);
   if(hasTarget() && m_finiteStateMachine.getState() == RobotState.SCORING){
     m_blinkin.setHasTarget();
   }
@@ -49,5 +55,54 @@ public class SUB_LimeLight extends SubsystemBase {
     else{
       return false;
     }
+  }
+  public double getTargetID(){
+    return NetworkTableInstance.getDefault().getTable("limelight").getEntry("tid").getDouble(0);
+  }
+
+  public double getTargetX(){
+    return botpose[0];
+  }
+
+  public double getTargetY(){
+    return botpose[1];
+  }
+
+  public double getTargetZ(){
+    return botpose[2];
+  }
+
+  public double getTargetPitch(){
+    return botpose[3];
+  }
+
+  public double getWantedX(){
+    return wanted_x;
+  }
+
+  public double getWantedY(){
+    return wanted_y;
+  }
+  
+  public double getWantedZ(){
+    return wanted_z;
+  }
+  public double getWantedPitch(){
+    return wanted_pitch;
+  }
+
+  public void setWantedX(double p_wanted_x){
+     wanted_x = p_wanted_x;
+  }
+
+  public void setWantedY(double p_wanted_y){
+    wanted_y = p_wanted_y;
+  }
+  
+  public void setWantedZ(double p_wanted_z){
+    wanted_z = p_wanted_z;
+  }
+  public void setWantedPitch(double p_wanted_pitch){
+    wanted_pitch = p_wanted_pitch;
   }
 }

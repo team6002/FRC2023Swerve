@@ -116,7 +116,16 @@ public final class Constants {
     }
 
     public static final class BlinkinConstants{
-      public static final double sky_blue = .83;
+      public static final double kSkyBlue = .83;
+      public static final double kRed = 0.61;
+      public static final double kRedStrobe = -.11;
+      public static final double kGreen = .77;
+      public static final double kFireLarge = -.57;
+      public static final double kTippedFront = .61;
+      public static final double kTippedFrontFar = .57;
+      public static final double kTippedBack = .91;
+      public static final double kTippedBackFar = .87;
+      public static final double kBalanced = 77;
     }
     
     public static final class AutoConstants {

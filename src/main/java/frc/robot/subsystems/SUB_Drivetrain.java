@@ -12,6 +12,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.SPI.Port;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.kauailabs.navx.frc.AHRS;
 
@@ -26,6 +27,9 @@ public class SUB_Drivetrain extends SubsystemBase {
   SUB_FiniteStateMachine m_finiteStateMachine;
   public boolean balanced = false;
   public double timer;
+  public int wantedHeight;//wanted position for droppoff, integer from 1-3, 1 is bottom, 3 is top
+  public int wantedLength;//wanted position for droppoff, integer from 1-3, 1 is far left, 3 is far right
+
   private final SwerveModule m_frontLeft = new SwerveModule(
       DriveConstants.kFrontLeftDriveID,
       DriveConstants.kFrontLeftTurningID,
@@ -63,6 +67,7 @@ public class SUB_Drivetrain extends SubsystemBase {
   public SUB_Drivetrain(SUB_Blinkin p_blinkin, SUB_FiniteStateMachine p_finiteStateMachine) {
     m_blinkin = p_blinkin;
     m_finiteStateMachine =p_finiteStateMachine;
+    m_navx.reset();
   }
 
   @Override
@@ -81,25 +86,40 @@ public class SUB_Drivetrain extends SubsystemBase {
           if(Math.abs(getPitch()) < 5){
               m_blinkin.set(BlinkinConstants.kGreen);
               balanced = true;
+              //drive stop
           }else if(getPitch() > 30){
             m_blinkin.setBackFar();
             balanced = false;
+            //drive forward
           }else if(getPitch() > 15){
             m_blinkin.setBack();
             balanced = false;
+            //drive forward slowly
           }else if(getPitch() < -30){
             m_blinkin.setFrontFar();
             balanced = false;
+            //drive back slowly
           }else if(getPitch() < -15){
             m_blinkin.setFront();
             balanced = false;
+            //drive back
           }
           
-          if(balanced == true) timer ++;
+          if(balanced == true) timer +=.02;
           else timer = 0;
 
-          if(timer >= 60) m_blinkin.setCelebrate();
+          if(timer >= 2){
+            m_blinkin.setCelebrate();
+            timer = 2;
         }
+      }
+
+        telemetry();
+  }
+
+  public void telemetry(){
+    SmartDashboard.putNumber("pitch", getPitch());
+    SmartDashboard.putNumber("timer", timer);
   }
 
   /**
@@ -212,5 +232,17 @@ public class SUB_Drivetrain extends SubsystemBase {
    */
   public double getTurnRate() {
     return m_navx.getRate() * (DriveConstants.kGyroReversed ? -1.0 : 1.0);
+  }
+
+  public void setWantedHeight(int p_height){
+    wantedHeight = p_height;
+  }
+
+  public void setWantedLength(int p_length){
+    wantedLength = p_length;
+  }
+
+  public int getWantedLength(){
+    return wantedLength;
   }
 }

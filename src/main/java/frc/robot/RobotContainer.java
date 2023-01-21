@@ -71,6 +71,34 @@ public class RobotContainer {
       new CMD_ArmSetOff(m_arm);
     }
 
+    // if(m_driverController.getLeftBumperPressed()){
+    //   m_robotDrive.setWantedLength(1);
+    // }
+
+    // if(m_driverController.getYButtonPressed()){
+    //   m_robotDrive.setWantedLength(2);
+    // }
+
+    // if(m_driverController.getRightBumperPressed()){
+    //   m_robotDrive.setWantedLength(3);
+    // }
+
+    // if(m_driverController.getAButtonPressed()){
+    //   m_robotDrive.getWantedLength();
+    //   //use wanted length to drive
+    // }
+
+    // if(m_operatorController.getYButtonPressed()){
+    //   m_robotDrive.setWantedHeight(3);
+    // }
+
+    // if(m_operatorController.getXButtonPressed()){
+    //   m_robotDrive.setWantedHeight(2);
+    // }
+
+    // if(m_operatorController.getAButtonPressed()){
+    //   m_robotDrive.setWantedHeight(3);
+    // }
   }
 
 }

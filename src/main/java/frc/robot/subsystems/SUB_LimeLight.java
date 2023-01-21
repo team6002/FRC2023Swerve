@@ -36,11 +36,13 @@ public class SUB_LimeLight extends SubsystemBase {
   public void periodic() {
   SmartDashboard.putNumber("DO YOU SEE ANYTHING ", NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0));
   botpose =  NetworkTableInstance.getDefault().getTable("limelight").getEntry("camtran").getDoubleArray(dv);
-  if(hasTarget() && m_finiteStateMachine.getState() == RobotState.SCORING){
-    m_blinkin.setHasTarget();
-  }
-  else{
-    m_blinkin.setHasNoTarget();
+  if(m_finiteStateMachine.getState() == RobotState.SCORING){  
+    if(hasTarget()){
+      m_blinkin.setHasTarget();
+    }
+    else{
+      m_blinkin.setHasNoTarget();
+    }
   }
   }
 

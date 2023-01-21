@@ -16,7 +16,7 @@ public class SUB_FiniteStateMachine {
         BALANCING,
     }
 
-    private RobotState m_currentState = RobotState.HOME;
+    private RobotState m_currentState = RobotState.BALANCING;
 
     public void setState(RobotState p_State) {
         m_currentState = p_State;

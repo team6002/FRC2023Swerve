@@ -29,70 +29,71 @@ public final class Constants {
     public static final class DriveConstants {
 
         //conversion factors
+        public static final double kpinonTeeth = 14;
         public static final double kwheeldiameter = Units.inchesToMeters(3);   // 3in 
-        public static final double kdriveReduction = (16.0 / 32.0) * (15.0 / 45.0);
-        public static final double positionConversionFactor = Math.PI * kwheeldiameter * kdriveReduction;
+        public static final double kdriveReduction = (45*22)/(kpinonTeeth*15);  //(16.0 / 32.0) * (15.0 / 45.0);
+        public static final double positionConversionFactor = (Math.PI * kwheeldiameter) / kdriveReduction;
         public static final double ksteeringReduction = (10.0 / 30.0 ) * (18.0 / 96.0);
         public static final double analogPositionConversionFactor = (2 * Math.PI / 3.3);
         //drive motor pid
-        public static final double kDriveP = 0.005;  //15.0;
-        public static final double kDriveI = 0;//0;  //0.01;
-        public static final double kDriveD = 0.1;  //0.1;
-        public static final double kDriveF = 0.2;  //0.2;
+        public static final double kDriveP = 0.01;  
+        public static final double kDriveI = 0;
+        public static final double kDriveD = 0.6;//0.1;
+        public static final double kDriveF = 0.21;//0.2;
         //turning motor pid
-        public static final double kTurnP = 0.8;
-        public static final double kTurnI = 0.00;
-        public static final double kTurnD = 0.02;
+        public static final double kTurnP = 0.7;//0.8;
+        public static final double kTurnI = 0;//0.00;
+        public static final double kTurnD = 0.02;//0.02;
         public static final double kTurnF = 0;
 
         //Drive Motor Constants
         public static final double kDriveEncoderPositionFactor = positionConversionFactor;
         public static final double kDriveEncoderVelocityFactor = positionConversionFactor / 60.0;
-        public static final double kDriveMinOutput = 1;
-        public static final double kDriveMaxOutput = 2;
+        public static final double kDriveMinOutput = -1;
+        public static final double kDriveMaxOutput = 1;
         public static final IdleMode kDriveMotorIdleMode = IdleMode.kBrake;    
         public static final int kDriveMotorCurrentLimit = 50; // amps
         //Turn Motor Constants
-        public static final double kTurnEncoderPositionFactor = 2 * Math.PI * ksteeringReduction;
-        public static final double kTurnEncoderVelocityFactor = 2 * Math.PI * ksteeringReduction / 60;
+        public static final double kTurnEncoderPositionFactor = 2 * Math.PI;
+        public static final double kTurnEncoderVelocityFactor = 2 * Math.PI;
         public static final boolean kTurnEncoderInverted = true;
         public static final double kTurnEncoderPositionPIDMinInput = 0;
         public static final double kTurnEncoderPositionPIDMaxInput = 2*Math.PI;
-        public static final double kTurnMinOutput = 1;
-        public static final double kTurnMaxOutput = 2;
+        public static final double kTurnMinOutput = -1;
+        public static final double kTurnMaxOutput = 1;
         // public static final IdleMode kTurnMotorIdleMode = IdleMode.kBrake;
         public static final IdleMode kTurnMotorIdleMode = IdleMode.kCoast;
         public static final int kTurnMotorCurrentLimit = 20; // amps
 
-        public static double kFrontLeftOffset = 0;  
-        public static double kBackLeftOffset = 0;
+        public static double kFrontLeftOffset = -Math.PI / 2;  
+        public static double kBackLeftOffset = Math.PI;
         public static double kFrontRightOffset = 0;
-        public static double kBackRightOffset = 0;
+        public static double kBackRightOffset = Math.PI / 2;
 
         public static double k_LeftEvasiveX = 0.0635;
         public static double k_LeftEvasiveY = 0.6477;
         public static double k_RightEvasiveX = 0.6477;
         public static double k_RightEvasiveY = -0.0635;
         
-    
-        public static double kMaxSpeedMetersPerSecond = 6380.0 / 60.0 *
-                (16.0 / 32.0) * ( 15.0 / 45.0) * Units.inchesToMeters(3) * Math.PI;
+
+        public static double kMaxSpeedMetersPerSecond = 4.8;
         public static int kNavXAdjustment = 0;
 
-        public static final int kFrontLeftTurningID = 16;    
-        public static final int kFrontLeftDriveID = 15;
-        public static final int kBackLeftTurningID = 4;
-        public static final int kBackLeftDriveID = 3;
+        //motor assignments
+        public static final int kFrontLeftTurningID = 13;    
+        public static final int kFrontLeftDriveID = 14;
+        public static final int kBackLeftTurningID = 16;
+        public static final int kBackLeftDriveID = 15;
 
         public static final boolean kFrontLeftDriveMotorInverted = false;
-        public static final boolean kFrontRightDriveMotorInverted = true;
+        public static final boolean kFrontRightDriveMotorInverted = false;
         public static final boolean kBackLeftDriveMotorInverted = false;
-        public static final boolean kBackRightDriveMotorInverted = true;
+        public static final boolean kBackRightDriveMotorInverted = false;
         
-        public static final int kFrontRightTurningID = 14;
-        public static final int kFrontRightDriveID = 13;
-        public static final int kBackRightTurningID = 6;
-        public static final int kBackRightDriveID = 5;
+        public static final int kFrontRightTurningID = 6;
+        public static final int kFrontRightDriveID = 5;
+        public static final int kBackRightTurningID = 3;
+        public static final int kBackRightDriveID = 4;
 
         public static final int kFrontLeftDriveAnalogPort = 6;
         public static final int kFrontRightDriveAnalogPort = 7;
@@ -102,9 +103,9 @@ public final class Constants {
         public static final double kMaxAngularSpeed = 4*Math.PI;
         public static final boolean kGyroReversed = false;
 
-        public static final double kTrackWidth = Units.inchesToMeters(23.5);
+        public static final double kTrackWidth = Units.inchesToMeters(18.5);
         // Distance between centers of right and left wheels on robot
-        public static final double kWheelBase = Units.inchesToMeters(23.5);
+        public static final double kWheelBase = Units.inchesToMeters(22.5);
         // Distance between front and back wheels on robot
         public static final SwerveDriveKinematics kDriveKinematics =
             new SwerveDriveKinematics(

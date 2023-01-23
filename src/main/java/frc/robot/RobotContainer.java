@@ -42,34 +42,31 @@ public class RobotContainer {
     configureButtonBindings();
 
     // Configure default commands
-    m_robotDrive.setDefaultCommand(new CMD_DriveCommand(m_robotDrive, m_driverController));  }
+    m_robotDrive.setDefaultCommand(new CMD_DriveCommand(m_robotDrive, m_driverController));
+  }
 
 
   private void configureButtonBindings() {
 
-    if(m_driverController.getLeftBumperPressed()){
-      new CMD_IntakeForward(m_intake);
-    }
+    // if(m_driverController.getLeftBumperPressed()){
+    //   new CMD_IntakeForward(m_intake);
+    // }
     
-    if(m_driverController.getRightBumperPressed()){
-      new CMD_IntakeReverse(m_intake);
-    }
+    // if(m_driverController.getRightBumperPressed()){
+    //   new CMD_IntakeReverse(m_intake);
+    // }
 
-    if(m_driverController.getBButtonPressed()){
-      new CMD_IntakeOff(m_intake);
-    }
+    // if(m_driverController.getBButtonPressed()){
+    //   new CMD_IntakeOff(m_intake);
+    // }
 
-    if(m_driverController.getYButtonPressed()){
-      new CMD_ArmSetOn(m_arm);
-    }
+    // if(m_driverController.getYButtonPressed()){
+    //   new CMD_ArmSetOn(m_arm);
+    // }
     
-    if(m_driverController.getAButtonPressed()){
-      new CMD_ArmSetReverse(m_arm);
-    }
-
-    if(m_driverController.getXButtonPressed()){
-      new CMD_ArmSetOff(m_arm);
-    }
+    // if(m_driverController.getAButtonPressed()){
+    //   new CMD_ArmSetReverse(m_arm);
+    // }
 
     // if(m_driverController.getLeftBumperPressed()){
     //   m_robotDrive.setWantedLength(1);
@@ -100,5 +97,16 @@ public class RobotContainer {
     //   m_robotDrive.setWantedHeight(3);
     // }
   }
+
+  // public void runXTest() {
+  //   if(m_driverController.getXButtonPressed()){
+  //     // new CMD_ArmSetOff(m_arm);
+  //     m_robotDrive.setX();
+  //   }
+  // }
+
+    public void zeroGyroHeading() {
+      m_robotDrive.zeroHeading();
+    }
 
 }

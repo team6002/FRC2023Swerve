@@ -11,6 +11,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -35,22 +36,29 @@ public class SUB_Drivetrain extends SubsystemBase {
   private final SwerveModule m_frontLeft = new SwerveModule(
       DriveConstants.kFrontLeftDriveID,
       DriveConstants.kFrontLeftTurningID,
-      DriveConstants.kFrontLeftOffset);
-
+      DriveConstants.kFrontLeftOffset,
+      "FrontLeft"
+      );
   private final SwerveModule m_frontRight = new SwerveModule(
       DriveConstants.kFrontRightDriveID,
       DriveConstants.kFrontRightTurningID,
-      DriveConstants.kFrontRightOffset);
+      DriveConstants.kFrontRightOffset,
+      "FrontRight"
+      );
 
   private final SwerveModule m_rearLeft = new SwerveModule(
       DriveConstants.kBackLeftDriveID,
       DriveConstants.kBackLeftTurningID,
-      DriveConstants.kBackLeftOffset);
+      DriveConstants.kBackLeftOffset,
+      "BackLeft"
+      );
 
   private final SwerveModule m_rearRight = new SwerveModule(
       DriveConstants.kBackRightDriveID,
       DriveConstants.kBackRightTurningID,
-      DriveConstants.kBackRightOffset);
+      DriveConstants.kBackRightOffset,
+      "BackRight"
+      );
 
   // The gyro sensor
   private final AHRS m_navx = new AHRS(Port.kMXP);
@@ -70,11 +78,21 @@ public class SUB_Drivetrain extends SubsystemBase {
     m_blinkin = p_blinkin;
     m_finiteStateMachine = p_finiteStateMachine;
     m_LimeLight = p_limeLight;
-    m_navx.reset();
+  }
+
+  public void updateDashboardDrive(){
+    m_frontRight.updateSmartDashboard();
+    m_frontLeft.updateSmartDashboard();
+    m_rearLeft.updateSmartDashboard();
+    m_rearRight.updateSmartDashboard();
+
+    SmartDashboard.putNumber("m_navx.getAngle()", m_navx.getAngle());
+    SmartDashboard.putNumber("m_navx.getRotation2d()", m_navx.getRotation2d().getDegrees());
   }
 
   @Override
   public void periodic() {
+    updateDashboardDrive();
     // Update the odometry in the periodic block
     m_odometry.update(
         Rotation2d.fromDegrees(m_navx.getAngle()),
@@ -84,7 +102,6 @@ public class SUB_Drivetrain extends SubsystemBase {
             m_rearLeft.getPosition(),
             m_rearRight.getPosition()
         });
-
         if(m_finiteStateMachine.getState() == RobotState.BALANCING){
           if(Math.abs(getPitch()) < 5){
               m_blinkin.set(BlinkinConstants.kGreen);
@@ -125,9 +142,9 @@ public class SUB_Drivetrain extends SubsystemBase {
   public void telemetry(){
     SmartDashboard.putNumber("pitch", getPitch());
     SmartDashboard.putNumber("timer", timer);
-    SmartDashboard.putNumber("x", relativeBotpose[0]);
-    SmartDashboard.putNumber("y", relativeBotpose[1]);
-    SmartDashboard.putNumber("yaw", relativeBotpose[2]);
+    SmartDashboard.putNumber("x", Units.metersToInches(relativeBotpose[0]));
+    SmartDashboard.putNumber("y", Units.metersToInches(relativeBotpose[1]));
+    SmartDashboard.putNumber("yaw", Units.metersToInches(relativeBotpose[2]));
     SmartDashboard.putNumber("raw x", getX());
     SmartDashboard.putNumber("raw y", getY());
   }
@@ -187,7 +204,7 @@ public class SUB_Drivetrain extends SubsystemBase {
 
     var swerveModuleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(
         fieldRelative
-            ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, Rotation2d.fromDegrees(m_navx.getAngle()))
+            ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, m_navx.getRotation2d())
             : new ChassisSpeeds(xSpeed, ySpeed, rot));
     SwerveDriveKinematics.desaturateWheelSpeeds(
         swerveModuleStates, DriveConstants.kMaxSpeedMetersPerSecond);
@@ -202,7 +219,7 @@ public class SUB_Drivetrain extends SubsystemBase {
    */
   public void setX() {
     m_frontLeft.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(45)));
-    m_frontRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(-45)));
+    m_frontRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(45)));
     m_rearLeft.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(-45)));
     m_rearRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(45)));
   }
@@ -231,7 +248,7 @@ public class SUB_Drivetrain extends SubsystemBase {
 
   /** Zeroes the heading of the robot. */
   public void zeroHeading() {
-    m_navx.reset();
+    m_navx.zeroYaw();
   }
 
   /**

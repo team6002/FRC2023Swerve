@@ -61,8 +61,8 @@ public final class Constants {
         public static final double kTurnEncoderPositionPIDMaxInput = 2*Math.PI;
         public static final double kTurnMinOutput = -1;
         public static final double kTurnMaxOutput = 1;
-        // public static final IdleMode kTurnMotorIdleMode = IdleMode.kBrake;
-        public static final IdleMode kTurnMotorIdleMode = IdleMode.kCoast;
+        public static final IdleMode kTurnMotorIdleMode = IdleMode.kBrake;
+        // public static final IdleMode kTurnMotorIdleMode = IdleMode.kCoast;
         public static final int kTurnMotorCurrentLimit = 20; // amps
 
         public static double kFrontLeftOffset = -Math.PI / 2;  
@@ -161,7 +161,7 @@ public final class Constants {
       public static final class IntakeConstants{
         public static final int kIntakeMotorCanID = 19;
         public static final double kIntakeForward = 500;
-        public static final double kIntakeForwardPower = .33;
+        public static final double kIntakeForwardPower = 1;
 
       }
       public static final class ArmConstants{

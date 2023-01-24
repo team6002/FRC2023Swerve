@@ -12,8 +12,8 @@ public class CMD_DriveCommand extends CommandBase {
   private final SUB_Drivetrain m_drivetrain;
   private final CommandXboxController controller;
   // Slew rate limiters to make joystick inputs more gentle; 1/3 sec from 0 to 1.
-  private final SlewRateLimiter xspeedLimiter = new SlewRateLimiter(0.2);
-  private final SlewRateLimiter yspeedLimiter = new SlewRateLimiter(0.2);
+  private final SlewRateLimiter xspeedLimiter = new SlewRateLimiter(0.5);
+  private final SlewRateLimiter yspeedLimiter = new SlewRateLimiter(0.5);
   private final SlewRateLimiter rotLimiter = new SlewRateLimiter(0.2);
   public boolean fieldMode = false;
   double deadzone = 0.15;	//variable for amount of deadzone

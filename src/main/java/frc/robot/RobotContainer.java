@@ -49,8 +49,10 @@ public class RobotContainer {
   }
   boolean pressed = false;
   private void configureButtonBindings() {
-    m_driverControllerTrigger.leftBumper().onTrue(new CMD_IntakeForward(m_intake));
-    m_driverControllerTrigger.rightBumper().onTrue(new CMD_IntakeReverse(m_intake));
+    m_driverControllerTrigger.leftBumper().onTrue(new CMD_IntakeForward(m_intake))
+    .onFalse(new CMD_IntakeHold(m_intake));
+    m_driverControllerTrigger.rightBumper().onTrue(new CMD_IntakeReverse(m_intake))
+    .onFalse(new CMD_IntakeHold(m_intake));
     m_driverControllerTrigger.b().onTrue(new CMD_IntakeOff(m_intake));
     m_driverControllerTrigger.y().whileTrue(new CMD_ArmSetOn(m_arm));
     m_driverControllerTrigger.x().whileTrue(new CMD_ArmSetReverse(m_arm));

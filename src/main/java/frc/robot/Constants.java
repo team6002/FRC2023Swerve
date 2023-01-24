@@ -159,16 +159,18 @@ public final class Constants {
                 kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
       }
       public static final class IntakeConstants{
-        public static final int kIntakeMotorCanID = 1;
+        public static final int kIntakeMotorCanID = 19;
         public static final double kIntakeForward = 500;
+        public static final double kIntakeForwardPower = .33;
+
       }
       public static final class ArmConstants{
-        public static final int kArmMotorCanID = 2;
+        public static final int kArmMotorCanID = 18;
         public static final double kArmP = 0;
         public static final double kArmI = 0;
         public static final double kArmD = 0;
         public static final double kArmF = 1;
-
+        public static final double kArmForward = .2;
       }
 
 }

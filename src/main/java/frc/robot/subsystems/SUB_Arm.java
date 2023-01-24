@@ -29,7 +29,7 @@ public class SUB_Arm extends SubsystemBase {
   }
 
   public void setArmOn(){
-    m_armMotor.set(.1);
+    m_armMotor.set(ArmConstants.kArmForward);
   }
 
   public void setArmOff(){
@@ -37,7 +37,7 @@ public class SUB_Arm extends SubsystemBase {
   }
 
   public void setArmReverse(){
-    m_armMotor.set(-.1);
+    m_armMotor.set(-ArmConstants.kArmForward);
   }
 
   @Override

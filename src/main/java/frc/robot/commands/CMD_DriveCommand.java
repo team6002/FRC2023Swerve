@@ -2,15 +2,15 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.filter.SlewRateLimiter;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.SUB_Drivetrain;
 import frc.robot.Constants.DriveConstants;
 
 public class CMD_DriveCommand extends CommandBase {
 
   private final SUB_Drivetrain m_drivetrain;
-  private final XboxController controller;
+  private final CommandXboxController controller;
   // Slew rate limiters to make joystick inputs more gentle; 1/3 sec from 0 to 1.
   private final SlewRateLimiter xspeedLimiter = new SlewRateLimiter(0.2);
   private final SlewRateLimiter yspeedLimiter = new SlewRateLimiter(0.2);
@@ -21,11 +21,11 @@ public class CMD_DriveCommand extends CommandBase {
   double x = 0;           //variable for side to side movement
   double turn = 0;        //variable for turning movement
 
-  public CMD_DriveCommand(SUB_Drivetrain drivetrain, XboxController controller) {
+  public CMD_DriveCommand(SUB_Drivetrain drivetrain, CommandXboxController m_driverControllerTrigger) {
     this.m_drivetrain = drivetrain;
     addRequirements(drivetrain);
 
-    this.controller = controller;
+    this.controller = m_driverControllerTrigger;
   }
 
   @Override

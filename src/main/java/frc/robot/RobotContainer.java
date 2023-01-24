@@ -6,7 +6,9 @@ package frc.robot;
 
 
 import edu.wpi.first.wpilibj.XboxController;
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.*;
 import frc.robot.subsystems.SUB_Arm;
 import frc.robot.subsystems.SUB_Blinkin;
@@ -31,8 +33,9 @@ public class RobotContainer {
   private final SUB_Drivetrain m_robotDrive = new SUB_Drivetrain(m_blinkin, m_finiteStateMachine, m_limeLight);
   private final SUB_Intake m_intake = new SUB_Intake(m_finiteStateMachine, m_blinkin);
   // The driver's controller
-  XboxController m_driverController = new XboxController(0);
   XboxController m_operatorController = new XboxController(1);
+  CommandXboxController m_driverControllerTrigger = new CommandXboxController(0);
+  Trigger xButton = m_driverControllerTrigger.leftBumper();
 
   /**
    * The container for the robot. Contains subsystems, IO devices, and commands.
@@ -42,43 +45,19 @@ public class RobotContainer {
     configureButtonBindings();
 
     // Configure default commands
-    m_robotDrive.setDefaultCommand(new CMD_DriveCommand(m_robotDrive, m_driverController));
+    m_robotDrive.setDefaultCommand(new CMD_DriveCommand(m_robotDrive, m_driverControllerTrigger));
   }
-
-
+  boolean pressed = false;
   private void configureButtonBindings() {
-
-    // if(m_driverController.getLeftBumperPressed()){
-    //   new CMD_IntakeForward(m_intake);
-    // }
-    
-    // if(m_driverController.getRightBumperPressed()){
-    //   new CMD_IntakeReverse(m_intake);
-    // }
-
-    // if(m_driverController.getBButtonPressed()){
-    //   new CMD_IntakeOff(m_intake);
-    // }
-
-    // if(m_driverController.getYButtonPressed()){
-    //   new CMD_ArmSetOn(m_arm);
-    // }
-    
-    // if(m_driverController.getAButtonPressed()){
-    //   new CMD_ArmSetReverse(m_arm);
-    // }
-
-    // if(m_driverController.getLeftBumperPressed()){
-    //   m_robotDrive.setWantedLength(1);
-    // }
-
-    // if(m_driverController.getYButtonPressed()){
-    //   m_robotDrive.setWantedLength(2);
-    // }
-
-    // if(m_driverController.getRightBumperPressed()){
-    //   m_robotDrive.setWantedLength(3);
-    // }
+    m_driverControllerTrigger.leftBumper().onTrue(new CMD_IntakeForward(m_intake));
+    m_driverControllerTrigger.rightBumper().onTrue(new CMD_IntakeReverse(m_intake));
+    m_driverControllerTrigger.b().onTrue(new CMD_IntakeOff(m_intake));
+    m_driverControllerTrigger.y().whileTrue(new CMD_ArmSetOn(m_arm));
+    m_driverControllerTrigger.x().whileTrue(new CMD_ArmSetReverse(m_arm));
+    m_driverControllerTrigger.y().whileFalse(new CMD_ArmSetOff(m_arm));
+    m_driverControllerTrigger.x().whileFalse(new CMD_ArmSetOff(m_arm));
+    m_driverControllerTrigger.back().onTrue(new CMD_ArmSetOff(m_arm));
+    m_driverControllerTrigger.a().onTrue(new CMD_IntakeHold(m_intake));
 
     // if(m_driverController.getAButtonPressed()){
     //   m_robotDrive.getWantedLength();

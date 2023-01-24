@@ -7,15 +7,15 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.SUB_Intake;
 
-public class CMD_IntakeForward extends CommandBase {
+public class CMD_IntakeHold extends CommandBase {
   SUB_Intake m_intake;
-  public CMD_IntakeForward(SUB_Intake p_intake) {
+  public CMD_IntakeHold(SUB_Intake p_intake) {
     m_intake = p_intake;
   }
 
   @Override
   public void initialize() {
-    m_intake.setIntakeCurrent();
+    m_intake.setHoldCurrent();
     m_intake.setIntakeForward();
   }
 

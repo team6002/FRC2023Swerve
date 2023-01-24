@@ -15,6 +15,7 @@ public class CMD_IntakeReverse extends CommandBase {
 
   @Override
   public void initialize() {
+    m_intake.setIntakeCurrent();
     m_intake.setIntakeReverse();
   }
 

@@ -31,7 +31,7 @@ public class SUB_Intake extends SubsystemBase {
 
   public void setIntakeForward(){
     // m_intakeMotorPIDController.setReference(IntakeConstants.kIntakeForward, CANSparkMax.ControlType.kVelocity);
-    m_intakeMotor.set(.15);
+    m_intakeMotor.set(IntakeConstants.kIntakeForwardPower);
   }
 
   public void setIntakeOff(){
@@ -41,11 +41,19 @@ public class SUB_Intake extends SubsystemBase {
 
   public void setIntakeReverse(){
     // m_intakeMotorPIDController.setReference(-IntakeConstants.kIntakeForward, CANSparkMax.ControlType.kVelocity);
-    m_intakeMotor.set(-.1);
+    m_intakeMotor.set(-IntakeConstants.kIntakeForwardPower);
   }
 
   public boolean getSensor(){
     return m_sensor.get();
+  }
+
+  public void setIntakeCurrent(){
+    m_intakeMotor.setSmartCurrentLimit(20);
+  }
+
+  public void setHoldCurrent(){
+    m_intakeMotor.setSmartCurrentLimit(5);
   }
 
   @Override

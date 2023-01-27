@@ -45,25 +45,26 @@ public class CMD_DriveCommand extends CommandBase {
     // final var xSpeed = xspeedLimiter.calculate(modifyAxis(-controller.getLeftY()))
     //     * DriveConstants.kMaxSpeedMetersPerSecond;
 
-    final var xSpeed = xspeedLimiter.calculate(MathUtil.applyDeadband(-controller.getLeftY(), deadzone));
-
+    // final var xSpeed = xspeedLimiter.calculate(MathUtil.applyDeadband(-controller.getLeftY(), deadzone));
+    // final var xSpeed = MathUtil.applyDeadband(-controller.getLeftY(), deadzone);  
+    final var xSpeed = modifyAxis(MathUtil.applyDeadband(-controller.getLeftY(),deadzone));    
     // Get the y speed or sideways/strafe speed. We are inverting this because
     // we want a positive value when we pull to the left. Xbox controllers
     // return positive values when you pull to the right by default.
-    final var ySpeed = yspeedLimiter.calculate(MathUtil.applyDeadband(-controller.getLeftX(), deadzone));
-    // final var ySpeed = yspeedLimiter.calculate(-controller.getLeftX())
-    //     * DriveConstants.kMaxSpeedMetersPerSecond;
-
+    // final var ySpeed = yspeedLimiter.calculate(MathUtil.applyDeadband(-controller.getLeftX(), deadzone));
+    // final var ySpeed = MathUtil.applyDeadband(-controller.getLeftX(), deadzone);
+    final var ySpeed = modifyAxis(MathUtil.applyDeadband(-controller.getLeftX(),deadzone));
+ 
     // Get the rate of angular rotation. We are inverting this because we want a
     // positive value when we pull to the left (remember, CCW is positive in
     // mathematics). Xbox controllers return positive values when you pull to
     // the right by default.
     
     
-    final var rot = rotLimiter.calculate(MathUtil.applyDeadband(-controller.getRightX(), deadzone));
-    // final var rot = rotLimiter.calculate(modifyAxis(-controller.getRightX()))
-    //     * DriveConstants.kMaxAngularSpeed;
-
+    // final var rot = rotLimiter.calculate(MathUtil.applyDeadband(-controller.getRightX(), deadzone));
+    // final var rot = MathUtil.applyDeadband(-controller.getRightX(), deadzone);
+    final var rot = modifyAxis(MathUtil.applyDeadband(-controller.getRightX(),deadzone));
+ 
     // SmartDashboard.putNumber("xspeed", xSpeed);
     // SmartDashboard.putNumber("yspeed", ySpeed);
     // SmartDashboard.putNumber("rotspeed", rot);
@@ -94,14 +95,15 @@ public class CMD_DriveCommand extends CommandBase {
   //   }
   // }
 
-  // private static double modifyAxis(double value) {
-  //   // Deadband
-  //   value = deadband(value, 0.2);
+  private static double modifyAxis(double value) {
+    // Deadband
+    // value = deadband(value, 0.2);
 
-  //   // Square the axis
-  //   // value = Math.copySign(value * value, value);
+    // Square the axis
+    value = value * value * value;
+    //value = Math.copySign(value * value, value);
 
-  //   return value;
-  // }
+    return value;
+  }
 
 }

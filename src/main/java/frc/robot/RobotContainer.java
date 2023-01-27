@@ -6,7 +6,6 @@ package frc.robot;
 
 
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.*;
@@ -31,7 +30,7 @@ public class RobotContainer {
   private final SUB_FiniteStateMachine m_finiteStateMachine = new SUB_FiniteStateMachine();
   private final SUB_LimeLight m_limeLight = new SUB_LimeLight(m_blinkin, m_finiteStateMachine);
   private final SUB_Drivetrain m_robotDrive = new SUB_Drivetrain(m_blinkin, m_finiteStateMachine, m_limeLight);
-  private final SUB_Intake m_intake = new SUB_Intake(m_finiteStateMachine, m_blinkin);
+  private final SUB_Intake m_intake = new SUB_Intake(m_finiteStateMachine, m_blinkin, m_limeLight);
   // The driver's controller
   XboxController m_operatorController = new XboxController(1);
   CommandXboxController m_driverControllerTrigger = new CommandXboxController(0);
@@ -45,21 +44,22 @@ public class RobotContainer {
     configureButtonBindings();
 
     // Configure default commands
-    m_robotDrive.setDefaultCommand(new CMD_DriveCommand(m_robotDrive, m_driverControllerTrigger));
+    // m_robotDrive.setDefaultCommand(new CMD_DriveCommand(m_robotDrive, m_driverControllerTrigger));
   }
   boolean pressed = false;
   private void configureButtonBindings() {
     m_driverControllerTrigger.leftBumper().onTrue(new CMD_IntakeForward(m_intake))
     .onFalse(new CMD_IntakeHold(m_intake));
     m_driverControllerTrigger.rightBumper().onTrue(new CMD_IntakeReverse(m_intake))
-    .onFalse(new CMD_IntakeHold(m_intake));
+    .onFalse(new CMD_IntakeHoldCube(m_intake));
     m_driverControllerTrigger.b().onTrue(new CMD_IntakeOff(m_intake));
-    m_driverControllerTrigger.y().whileTrue(new CMD_ArmSetOn(m_arm));
-    m_driverControllerTrigger.x().whileTrue(new CMD_ArmSetReverse(m_arm));
-    m_driverControllerTrigger.y().whileFalse(new CMD_ArmSetOff(m_arm));
-    m_driverControllerTrigger.x().whileFalse(new CMD_ArmSetOff(m_arm));
     m_driverControllerTrigger.back().onTrue(new CMD_ArmSetOff(m_arm));
     m_driverControllerTrigger.a().onTrue(new CMD_IntakeHold(m_intake));
+    m_driverControllerTrigger.leftTrigger().whileTrue(new CMD_ArmSetOn(m_arm));
+    m_driverControllerTrigger.leftTrigger().whileFalse(new CMD_ArmSetOff(m_arm));
+    m_driverControllerTrigger.rightTrigger().whileTrue(new CMD_ArmSetReverse(m_arm));
+    m_driverControllerTrigger.rightTrigger().whileFalse(new CMD_ArmSetOff(m_arm));
+    m_driverControllerTrigger.povRight().onTrue(new CMD_ArmSetPosition(m_arm, 160));
 
     // if(m_driverController.getAButtonPressed()){
     //   m_robotDrive.getWantedLength();

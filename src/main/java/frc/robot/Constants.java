@@ -126,7 +126,13 @@ public final class Constants {
       public static final double kTippedFrontFar = .57;
       public static final double kTippedBack = .91;
       public static final double kTippedBackFar = .87;
-      public static final double kBalanced = 77;
+      public static final double kBalanced = .77;
+      public static final double kYellow = 0.69;
+      public static final double kPurple = .89;
+      public static final double kColor1Chaser = .01;
+      public static final double kColor2Chaser = .21;
+      public static final double kColor1Blink = .13;
+      public static final double kColor2Blink = .33;
     }
 
     public static final class LimeLightConstants{
@@ -158,19 +164,22 @@ public final class Constants {
             new TrapezoidProfile.Constraints(
                 kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
       }
+
       public static final class IntakeConstants{
         public static final int kIntakeMotorCanID = 19;
         public static final double kIntakeForward = 500;
         public static final double kIntakeForwardPower = 1;
-
       }
+
       public static final class ArmConstants{
         public static final int kArmMotorCanID = 18;
-        public static final double kArmP = 0;
+        public static final double kArmP = 0.003;
         public static final double kArmI = 0;
-        public static final double kArmD = 0;
-        public static final double kArmF = 1;
-        public static final double kArmForward = .2;
+        public static final double kArmD = 0.1;
+        public static final double kArmF = 0;
+        public static final double kArmForward = .3;
+        public static final double kArmOffset = -.487;
+        public static final double kPowerLimit = .2;
       }
 
 }

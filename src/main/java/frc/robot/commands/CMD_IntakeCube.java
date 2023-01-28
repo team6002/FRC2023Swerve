@@ -22,7 +22,7 @@ public class CMD_IntakeCube extends CommandBase {
     m_intake.setIntakeState(false);
     m_intake.setIntakeReverse();
     m_intake.setIntakeState(false);
-    m_arm.setPosition(164);
+    m_arm.setPosition(171);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

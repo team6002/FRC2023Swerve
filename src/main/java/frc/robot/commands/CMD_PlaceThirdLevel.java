@@ -22,7 +22,7 @@ public class CMD_PlaceThirdLevel extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new CMD_ArmSetPosition(m_arm, 164),
+      new CMD_ArmSetPosition(m_arm, 171),
       new CMD_ArmCheck(m_arm, 164),
       new CMD_DropItem(m_intake),
       new WaitCommand(1),

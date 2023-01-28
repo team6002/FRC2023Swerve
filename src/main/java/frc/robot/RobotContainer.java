@@ -62,14 +62,14 @@ public class RobotContainer {
      new CMD_IntakeOff(m_intake)
     ));
 
-    m_driverControllerTrigger.leftTrigger().whileTrue(new CMD_IntakeCone(m_arm, m_intake)//intake cones
-    ).whileFalse(new CMD_HoldCone(m_intake, m_arm));//hold cones
+    m_driverControllerTrigger.leftTrigger().onTrue(new CMD_IntakeCone(m_arm, m_intake)//intake cones
+    ).onFalse(new CMD_HoldCone(m_intake, m_arm));//hold cones
 
-    m_driverControllerTrigger.rightTrigger().whileTrue(new CMD_IntakeCube(m_arm, m_intake)//intake cubes
-    ).whileFalse(new CMD_HoldCube(m_intake, m_arm));//hold cubes
+    m_driverControllerTrigger.rightTrigger().onTrue(new CMD_IntakeCube(m_arm, m_intake)//intake cubes
+    ).onFalse(new CMD_HoldCube(m_intake, m_arm));//hold cubes
 
-    m_driverControllerTrigger.leftBumper().onTrue(new CMD_PlaceThirdLevel(m_arm, m_intake))
-    .onFalse(new CMD_Stow(m_arm, m_intake));
+    m_driverControllerTrigger.leftBumper().onTrue(new CMD_PlaceThirdLevel(m_arm, m_intake));
+    // .onFalse(new CMD_Stow(m_arm, m_intake));
     // if(m_driverController.getAButtonPressed()){
     //   m_robotDrive.getWantedLength();
     //   //use wanted length to drive

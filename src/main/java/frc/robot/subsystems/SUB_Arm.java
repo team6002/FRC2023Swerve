@@ -34,18 +34,18 @@ public class SUB_Arm extends SubsystemBase {
       // m_armMotorPIDController.setI(ArmConstants.kArmI);
       // m_armMotorPIDController.setD(ArmConstants.kArmD);
       // m_armMotorPIDController.setFF(ArmConstants.kArmF);
-      m_armMotorPIDController.setP(0.000001,1);
+      m_armMotorPIDController.setP(0.0000,1);
       m_armMotorPIDController.setI(0,1);
       m_armMotorPIDController.setD(0,1);
       m_armMotorPIDController.setFF(0.01,1);
       m_armMotorPIDController.setFeedbackDevice(m_armEncoder);
-      m_armMotor.setIdleMode(IdleMode.kCoast);
+      m_armMotor.setIdleMode(IdleMode.kBrake);
       m_armMotorPIDController.setPositionPIDWrappingEnabled(false);
       m_armMotorPIDController.setOutputRange(-1, 1, 1);
-      m_armMotorPIDController.setSmartMotionMaxVelocity(10, 1);
+      m_armMotorPIDController.setSmartMotionMaxVelocity(20, 1);
+      m_armMotorPIDController.setSmartMotionMaxAccel(20, 1);
       m_armMotorPIDController.setSmartMotionMinOutputVelocity(0, 1);
-      m_armMotorPIDController.setSmartMotionMaxAccel(10, 1);
-      m_armMotorPIDController.setSmartMotionAllowedClosedLoopError(1, 1);
+      m_armMotorPIDController.setSmartMotionAllowedClosedLoopError(5, 1);
       m_armMotorPIDController.setSmartMotionAccelStrategy(SparkMaxPIDController.AccelStrategy.kTrapezoidal, 1);
 
       m_armMotorPIDController.setP(0.000001,2);
@@ -68,21 +68,23 @@ public class SUB_Arm extends SubsystemBase {
     public void setPosition(double p_reference){
       m_wantedPosition = p_reference;
       if(p_reference > 100){
-        System.out.println("Use PID1");
-        System.out.println("PID1 P=" + m_armMotorPIDController.getP(1));
-        System.out.println("PID1 I=" + m_armMotorPIDController.getI(1));
-        System.out.println("PID1 D=" + m_armMotorPIDController.getD(1));
-        System.out.println("PID1 F=" + m_armMotorPIDController.getFF(1));
+        m_armMotorPIDController.setP(0.000001,1);
+        m_armMotorPIDController.setI(0,1);
+        m_armMotorPIDController.setD(0,1);
+        m_armMotorPIDController.setFF(0.02,1);
+        m_armMotorPIDController.setSmartMotionMaxVelocity(20, 1);
+      m_armMotorPIDController.setSmartMotionMaxAccel(20, 1);
         m_wantedSlot = 1;
         m_armMotorPIDController.setReference(p_reference, CANSparkMax.ControlType.kSmartMotion,1);
       }else{
-        System.out.println("Use PID2");
-        System.out.println("PID2 P=" + m_armMotorPIDController.getP(2));
-        System.out.println("PID2 I=" + m_armMotorPIDController.getI(2));
-        System.out.println("PID2 D=" + m_armMotorPIDController.getD(2));
-        System.out.println("PID2 F=" + m_armMotorPIDController.getFF(2));
-        m_wantedSlot = 2;
-        m_armMotorPIDController.setReference(p_reference, CANSparkMax.ControlType.kSmartMotion,2);
+        m_wantedSlot = 1;
+        m_armMotorPIDController.setP(0.000001,1);
+        m_armMotorPIDController.setI(0,1);
+        m_armMotorPIDController.setD(0,1);
+        m_armMotorPIDController.setFF(0.01,1);
+        m_armMotorPIDController.setSmartMotionMaxVelocity(10, 1);
+        m_armMotorPIDController.setSmartMotionMaxAccel(10, 1);
+        m_armMotorPIDController.setReference(p_reference, CANSparkMax.ControlType.kSmartMotion, 1);
       }
     } 
     public double getPosition(){

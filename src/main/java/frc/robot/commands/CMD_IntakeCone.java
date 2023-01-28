@@ -19,9 +19,9 @@ public class CMD_IntakeCone extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // m_intake.setIntakeState(false);
-    // m_intake.setIntakeForward();
-    // m_intake.setIntakeState(true);
+    m_intake.setIntakeState(false);
+    m_intake.setIntakeForward();
+    m_intake.setIntakeState(true);
     m_arm.setPosition(171);
   }
 

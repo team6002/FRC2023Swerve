@@ -5,20 +5,20 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.SUB_Arm;
+import frc.robot.subsystems.SUB_Elevator;
 import frc.robot.subsystems.SUB_Intake;
 
 public class CMD_HoldCone extends CommandBase {
-  SUB_Arm m_arm;
+  SUB_Elevator m_elevator;
   SUB_Intake m_intake;
-  public CMD_HoldCone(SUB_Intake p_intake, SUB_Arm p_arm) {
-    m_arm = p_arm;
+  public CMD_HoldCone(SUB_Intake p_intake, SUB_Elevator p_elevator) {
+    m_elevator = p_elevator;
     m_intake = p_intake;
   }
 
   @Override
   public void initialize() {
-    m_arm.setPosition(15);
+    m_elevator.setPosition(15);
     m_intake.setHoldCurrent();
     m_intake.setPower(0.07);
   }

@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.*;
-import frc.robot.subsystems.SUB_Arm;
+import frc.robot.subsystems.SUB_Elevator;
 import frc.robot.subsystems.SUB_Blinkin;
 import frc.robot.subsystems.SUB_Drivetrain;
 import frc.robot.subsystems.SUB_FiniteStateMachine;
@@ -26,7 +26,7 @@ import frc.robot.subsystems.SUB_LimeLight;
  */
 public class RobotContainer {
   // The robot's subsystems
-  private final SUB_Arm m_arm = new SUB_Arm();
+  private final SUB_Elevator m_arm = new SUB_Elevator();
   private final SUB_Blinkin m_blinkin = new SUB_Blinkin();
   private final SUB_FiniteStateMachine m_finiteStateMachine = new SUB_FiniteStateMachine();
   private final SUB_LimeLight m_limeLight = new SUB_LimeLight(m_blinkin, m_finiteStateMachine);
@@ -58,7 +58,7 @@ public class RobotContainer {
     // m_driverControllerTrigger.povRight().onTrue(new CMD_ArmSetPosition(m_arm, 130));
 
     m_driverControllerTrigger.b().onTrue(new SequentialCommandGroup(//cancel
-     new CMD_ArmSetOff(m_arm),
+     new CMD_ElevatorSetOff(m_arm),
      new CMD_IntakeOff(m_intake)
     ));
 

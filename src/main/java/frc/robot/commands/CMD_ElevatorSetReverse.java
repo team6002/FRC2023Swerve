@@ -5,17 +5,17 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.SUB_Arm;
+import frc.robot.subsystems.SUB_Elevator;
 
-public class CMD_ArmSetReverse extends CommandBase {
-  SUB_Arm m_arm;
-  public CMD_ArmSetReverse(SUB_Arm p_arm) {
-    m_arm = p_arm;
+public class CMD_ElevatorSetReverse extends CommandBase {
+  SUB_Elevator m_elevator;
+  public CMD_ElevatorSetReverse(SUB_Elevator p_elevator) {
+    m_elevator = p_elevator;
   }
 
   @Override
   public void initialize() {
-    m_arm.setArmReverse();
+    m_elevator.setElevatorReverse();
   }
 
   @Override

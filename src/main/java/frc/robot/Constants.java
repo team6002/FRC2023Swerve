@@ -171,14 +171,14 @@ public final class Constants {
         public static final double kIntakeForwardPower = 1;
       }
 
-      public static final class ArmConstants{
-        public static final int kArmMotorCanID = 18;
-        public static final double kArmP = 0.00;
-        public static final double kArmI = 0;
-        public static final double kArmD = 0.;
-        public static final double kArmF = 0.0;
-        public static final double kArmForward = .3;
-        public static final double kArmOffset = -.487;
+      public static final class ElevatorConstants{
+        public static final int kElevatorMotorCanID = 18;
+        public static final double kElevatorP = 0.00;
+        public static final double kElevatorI = 0;
+        public static final double kElevatorD = 0.;
+        public static final double kElevatorF = 0.0;
+        public static final double kElevatorForward = .3;
+        public static final double kElevatorOffset = -.487;
         public static final double kPowerLimit = .2;
       }
 

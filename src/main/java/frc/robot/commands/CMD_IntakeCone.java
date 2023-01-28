@@ -5,14 +5,14 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.SUB_Arm;
+import frc.robot.subsystems.SUB_Elevator;
 import frc.robot.subsystems.SUB_Intake;
 
 public class CMD_IntakeCone extends CommandBase {
-  SUB_Arm m_arm;
+  SUB_Elevator m_elevator;
   SUB_Intake m_intake;
-  public CMD_IntakeCone(SUB_Arm p_arm, SUB_Intake p_intake) {
-    m_arm = p_arm;
+  public CMD_IntakeCone(SUB_Elevator p_elevator, SUB_Intake p_intake) {
+    m_elevator = p_elevator;
     m_intake = p_intake;
   }
 
@@ -22,7 +22,7 @@ public class CMD_IntakeCone extends CommandBase {
     m_intake.setIntakeState(false);
     m_intake.setIntakeForward();
     m_intake.setIntakeState(true);
-    m_arm.setPosition(164);
+    m_elevator.setPosition(164);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

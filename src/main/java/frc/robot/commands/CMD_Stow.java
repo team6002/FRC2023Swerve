@@ -5,15 +5,15 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.SUB_Arm;
+import frc.robot.subsystems.SUB_Elevator;
 import frc.robot.subsystems.SUB_Intake;
 
 public class CMD_Stow extends CommandBase {
   /** Creates a new CMD_Home. */
-  SUB_Arm m_arm;
+  SUB_Elevator m_elevator;
   SUB_Intake m_intake;
-  public CMD_Stow(SUB_Arm p_arm, SUB_Intake p_intake) {
-    m_arm = p_arm;
+  public CMD_Stow(SUB_Elevator p_elevator, SUB_Intake p_intake) {
+    m_elevator = p_elevator;
     m_intake = p_intake;
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -21,7 +21,7 @@ public class CMD_Stow extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_arm.setPosition(15);
+    m_elevator.setPosition(15);
     m_intake.setIntakeOff();
   }
 

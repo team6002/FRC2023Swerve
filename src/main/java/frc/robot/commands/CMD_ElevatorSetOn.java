@@ -5,19 +5,17 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.SUB_Arm;
+import frc.robot.subsystems.SUB_Elevator;
 
-public class CMD_ArmSetPosition extends CommandBase {
-  SUB_Arm m_arm;
-  double m_position;
-  public CMD_ArmSetPosition(SUB_Arm p_arm, double p_position) {
+public class CMD_ElevatorSetOn extends CommandBase {
+  SUB_Elevator m_arm;
+  public CMD_ElevatorSetOn(SUB_Elevator p_arm) {
     m_arm = p_arm;
-    m_position = p_position;
   }
 
   @Override
   public void initialize() {
-    m_arm.setPosition(m_position);
+    m_arm.setElevatorOn();
   }
 
   @Override
@@ -32,6 +30,6 @@ public class CMD_ArmSetPosition extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }

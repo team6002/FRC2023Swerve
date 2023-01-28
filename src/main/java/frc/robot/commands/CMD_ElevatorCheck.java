@@ -5,13 +5,13 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.SUB_Arm;
+import frc.robot.subsystems.SUB_Elevator;
 
-public class CMD_ArmCheck extends CommandBase {
+public class CMD_ElevatorCheck extends CommandBase {
   /** Creates a new CMD_ArmCheck. */
-  SUB_Arm m_arm;
+  SUB_Elevator m_arm;
   double m_wantedPosition;
-  public CMD_ArmCheck(SUB_Arm p_arm, double p_wantedPosition) {
+  public CMD_ElevatorCheck(SUB_Elevator p_arm, double p_wantedPosition) {
     m_arm = p_arm;
     m_wantedPosition = p_wantedPosition;
     // Use addRequirements() here to declare subsystem dependencies.

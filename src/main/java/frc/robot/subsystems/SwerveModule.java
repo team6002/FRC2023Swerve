@@ -159,12 +159,12 @@ public class SwerveModule {
     // Command driving and turning SPARKS MAX towards their respective setpoints.
     m_drivingPIDController.setReference(optimizedDesiredState.speedMetersPerSecond, CANSparkMax.ControlType.kVelocity);
     m_turningPIDController.setReference(optimizedDesiredState.angle.getRadians(), CANSparkMax.ControlType.kPosition);
-    m_optimizedDesiredState = optimizedDesiredState.angle.getRadians();
+    // m_optimizedDesiredState = optimizedDesiredState.angle.getRadians();
     m_desiredState = desiredState;
-    m_optimizedDesiredSpeed = optimizedDesiredState.speedMetersPerSecond;
+    // m_optimizedDesiredSpeed = optimizedDesiredState.speedMetersPerSecond;
   }
-  private double m_optimizedDesiredState = 0;
-  private double m_optimizedDesiredSpeed = 0;
+  // private double m_optimizedDesiredState = 0;
+  // private double m_optimizedDesiredSpeed = 0;
   /** Zeroes all the SwerveModule encoders. */
   public void resetEncoders() {
     m_drivingEncoder.setPosition(0);

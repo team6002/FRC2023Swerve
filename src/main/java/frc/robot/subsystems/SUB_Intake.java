@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkMaxPIDController;
+import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import frc.robot.Constants.IntakeConstants;
@@ -41,8 +42,7 @@ public class SUB_Intake extends SubsystemBase {
   }
 
   public void setIntakeOff(){
-    // m_intakeMotorPIDController.setReference(0, CANSparkMax.ControlType.kVelocity);
-    m_intakeMotor.set(0);
+    m_intakeMotorPIDController.setReference(0, ControlType.kVelocity);
   }
 
   public void setIntakeReverse(){
@@ -54,24 +54,23 @@ public class SUB_Intake extends SubsystemBase {
     return m_sensor.get();
   }
 
+  public void Off(){}
+
   public void setIntakeCurrent(){
     m_intakeMotor.setSmartCurrentLimit(35);
   }
 
   public void setHoldCurrent(){
     m_intakeMotor.setSmartCurrentLimit(5);
-    System.out.println(m_intakeMotor.getOutputCurrent());
+    // System.out.println(m_intakeMotor.getOutputCurrent());
   }
+
   public void setPower(double speed){
     m_intakeMotor.set(speed);
   }
 
-  public void toggleIntakeState(){
-    if(m_intakeState == true){
-      m_intakeState = false;
-    }else{
-      m_intakeState = true;
-    }
+  public void setIntakeState(boolean p_state){
+    m_intakeState = p_state;
   }
 
   public boolean getIntakeState(){

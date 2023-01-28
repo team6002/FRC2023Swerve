@@ -16,7 +16,6 @@ public class CMD_IntakeHold extends CommandBase {
   @Override
   public void initialize() {
     m_intake.setHoldCurrent();
-    // m_intake.setIntakeForward();
     m_intake.setPower(.07);
   }
 

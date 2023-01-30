@@ -22,6 +22,8 @@ public class SUB_Arm extends SubsystemBase {
   private final AbsoluteEncoder m_armEncoder;
   private double m_wantedPosition;
   private int m_wantedSlot;
+  private double arm_up_p, arm_up_i, arm_up_d, arm_up_f;
+  private double arm_down_p, arm_down_i, arm_down_d, arm_down_f;
 
     public SUB_Arm() {
       m_armMotor = new CANSparkMax(ArmConstants.kArmMotorCanID, MotorType.kBrushless);
@@ -34,12 +36,12 @@ public class SUB_Arm extends SubsystemBase {
       // m_armMotorPIDController.setI(ArmConstants.kArmI);
       // m_armMotorPIDController.setD(ArmConstants.kArmD);
       // m_armMotorPIDController.setFF(ArmConstants.kArmF);
-      m_armMotorPIDController.setP(0.0000,1);
+      m_armMotorPIDController.setP(0.0,1);
       m_armMotorPIDController.setI(0,1);
       m_armMotorPIDController.setD(0,1);
-      m_armMotorPIDController.setFF(0.01,1);
+      m_armMotorPIDController.setFF(0.0,1);
       m_armMotorPIDController.setFeedbackDevice(m_armEncoder);
-      m_armMotor.setIdleMode(IdleMode.kBrake);
+      m_armMotor.setIdleMode(IdleMode.kCoast);
       m_armMotorPIDController.setPositionPIDWrappingEnabled(false);
       m_armMotorPIDController.setOutputRange(-1, 1, 1);
       m_armMotorPIDController.setSmartMotionMaxVelocity(20, 1);
@@ -68,23 +70,25 @@ public class SUB_Arm extends SubsystemBase {
     public void setPosition(double p_reference){
       m_wantedPosition = p_reference;
       if(p_reference > 100){
-        m_armMotorPIDController.setP(0.000001,1);
-        m_armMotorPIDController.setI(0,1);
-        m_armMotorPIDController.setD(0,1);
-        m_armMotorPIDController.setFF(0.02,1);
+        m_armMotorPIDController.setP(arm_up_p,1);
+        m_armMotorPIDController.setI(arm_up_i,1);
+        m_armMotorPIDController.setD(arm_up_d,1);
+        m_armMotorPIDController.setFF(arm_up_f,1);
         m_armMotorPIDController.setSmartMotionMaxVelocity(20, 1);
-      m_armMotorPIDController.setSmartMotionMaxAccel(20, 1);
+        m_armMotorPIDController.setSmartMotionMaxAccel(20, 1);
         m_wantedSlot = 1;
-        m_armMotorPIDController.setReference(p_reference, CANSparkMax.ControlType.kSmartMotion,1);
+        m_armMotorPIDController.setReference(p_reference, CANSparkMax.ControlType.kPosition, 1);
+        // m_armMotorPIDController.setReference(p_reference, CANSparkMax.ControlType.kSmartMotion,1);
       }else{
         m_wantedSlot = 1;
-        m_armMotorPIDController.setP(0.000001,1);
-        m_armMotorPIDController.setI(0,1);
-        m_armMotorPIDController.setD(0,1);
-        m_armMotorPIDController.setFF(0.01,1);
+        m_armMotorPIDController.setP(arm_down_p,1);
+        m_armMotorPIDController.setI(arm_down_i,1);
+        m_armMotorPIDController.setD(arm_down_d,1);
+        m_armMotorPIDController.setFF(arm_down_f,1);
         m_armMotorPIDController.setSmartMotionMaxVelocity(10, 1);
         m_armMotorPIDController.setSmartMotionMaxAccel(10, 1);
-        m_armMotorPIDController.setReference(p_reference, CANSparkMax.ControlType.kSmartMotion, 1);
+        m_armMotorPIDController.setReference(p_reference, CANSparkMax.ControlType.kPosition, 1);
+        // m_armMotorPIDController.setReference(p_reference, CANSparkMax.ControlType.kSmartMotion, 1);
       }
     } 
     public double getPosition(){
@@ -161,5 +165,26 @@ public class SUB_Arm extends SubsystemBase {
       SmartDashboard.putNumber("Slot I=", m_armMotorPIDController.getI(m_wantedSlot));
       SmartDashboard.putNumber("Slot D=", m_armMotorPIDController.getD(m_wantedSlot));
       SmartDashboard.putNumber("Slot F=", m_armMotorPIDController.getFF(m_wantedSlot));
+      SmartDashboard.putNumber("Arm RampRate(s)", m_armMotor.getClosedLoopRampRate());
+
+      arm_up_p = SmartDashboard.getNumber("Arm UP P=", 0);
+      arm_up_i = SmartDashboard.getNumber("Arm UP I=", 0);
+      arm_up_d = SmartDashboard.getNumber("Arm UP D=", 0);
+      arm_up_f = SmartDashboard.getNumber("Arm UP F=", 0);
+
+      SmartDashboard.putNumber("Arm UP P=", arm_up_p);
+      SmartDashboard.putNumber("Arm UP I=", arm_up_i);
+      SmartDashboard.putNumber("Arm UP D=", arm_up_d);
+      SmartDashboard.putNumber("Arm UP F=", arm_up_f);
+
+      arm_down_p = SmartDashboard.getNumber("Arm DOWN P=", 0);
+      arm_down_i = SmartDashboard.getNumber("Arm DOWN I=", 0);
+      arm_down_d = SmartDashboard.getNumber("Arm DOWN D=", 0);
+      arm_down_f = SmartDashboard.getNumber("Arm DOWN F=", 0);
+
+      SmartDashboard.putNumber("Arm DOWN P=", arm_down_p);
+      SmartDashboard.putNumber("Arm DOWN I=", arm_down_i);
+      SmartDashboard.putNumber("Arm DOWN D=", arm_down_d);
+      SmartDashboard.putNumber("Arm DOWN F=", arm_down_f);
   }
 }

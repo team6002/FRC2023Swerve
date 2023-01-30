@@ -19,8 +19,8 @@ public class CMD_HoldCone extends CommandBase {
   @Override
   public void initialize() {
     m_arm.setPosition(100);
-    m_intake.setHoldCurrent();
-    m_intake.setPower(0.07);
+    // m_intake.setHoldCurrent();
+    // m_intake.setPower(0.07);
   }
 
   @Override

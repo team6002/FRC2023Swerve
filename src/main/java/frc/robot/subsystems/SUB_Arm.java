@@ -34,10 +34,10 @@ public class SUB_Arm extends SubsystemBase {
       // m_armMotorPIDController.setI(ArmConstants.kArmI);
       // m_armMotorPIDController.setD(ArmConstants.kArmD);
       // m_armMotorPIDController.setFF(ArmConstants.kArmF);
-      m_armMotorPIDController.setP(0.0000,1);
+      m_armMotorPIDController.setP(0.00355,1);
       m_armMotorPIDController.setI(0,1);
       m_armMotorPIDController.setD(0,1);
-      m_armMotorPIDController.setFF(0.01,1);
+      m_armMotorPIDController.setFF(0.005,1);
       m_armMotorPIDController.setFeedbackDevice(m_armEncoder);
       m_armMotor.setIdleMode(IdleMode.kBrake);
       m_armMotorPIDController.setPositionPIDWrappingEnabled(false);
@@ -145,9 +145,9 @@ public class SUB_Arm extends SubsystemBase {
     //   m_armMotorPIDController.setD(m_D,1);
     //   m_armMotorPIDController.setFF(m_F,1);
     //   setPosition(m_wantedPosition);
-      SmartDashboard.putNumber("velcoity", m_armEncoder.getVelocity());
+      SmartDashboard.putNumber("velocity", m_armEncoder.getVelocity());
       SmartDashboard.putNumber("output", m_armMotor.getAppliedOutput());
-      SmartDashboard.putNumber("wantedspeed", m_armMotor.get());
+      SmartDashboard.putNumber("wanted speed", m_armMotor.get());
       // SmartDashboard.putNumber("AccelStrat", m_armMotorPIDController.getSmartMotionMaxAccel(1));
       SmartDashboard.putNumber("Arm P", m_armMotorPIDController.getP());
       SmartDashboard.putNumber("Arm I", m_armMotorPIDController.getI());

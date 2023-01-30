@@ -69,6 +69,8 @@ public class RobotContainer {
     ).onFalse(new CMD_HoldCube(m_intake, m_arm));//hold cubes
 
     m_driverControllerTrigger.leftBumper().onTrue(new CMD_PlaceThirdLevel(m_arm, m_intake));
+
+    m_driverControllerTrigger.rightBumper().onTrue(new CMD_PlaceSecondLevel(m_arm, m_intake));
     // .onFalse(new CMD_Stow(m_arm, m_intake));
     // if(m_driverController.getAButtonPressed()){
     //   m_robotDrive.getWantedLength();

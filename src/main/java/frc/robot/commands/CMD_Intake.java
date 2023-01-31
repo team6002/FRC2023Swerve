@@ -7,20 +7,29 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.SUB_Arm;
 import frc.robot.subsystems.SUB_Intake;
+import frc.robot.subsystems.SUB_FiniteStateMachine.RobotState;
+import frc.robot.subsystems.SUB_FiniteStateMachine;
 
-public class CMD_HoldCone extends CommandBase {
+public class CMD_Intake extends CommandBase {
   SUB_Arm m_arm;
   SUB_Intake m_intake;
-  public CMD_HoldCone(SUB_Intake p_intake, SUB_Arm p_arm) {
+  SUB_FiniteStateMachine m_finiteStateMachine;
+  public CMD_Intake(SUB_Intake p_intake, SUB_Arm p_arm, SUB_FiniteStateMachine p_finiteStateMachine) {
     m_arm = p_arm;
     m_intake = p_intake;
+    m_finiteStateMachine = p_finiteStateMachine;
   }
 
   @Override
   public void initialize() {
-    m_arm.setPosition(100);
-    m_intake.setHoldCurrent();
-    m_intake.setPower(0.07);
+    m_finiteStateMachine.setState(RobotState.INTAKING);
+    m_arm.setPosition(173);
+    m_intake.setIntakeCurrent();
+    if(m_intake.getIntakeState() == true){
+      m_intake.setIntakeForward();
+    }else{
+      m_intake.setIntakeReverse();
+    }
   }
 
   @Override

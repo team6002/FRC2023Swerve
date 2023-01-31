@@ -49,53 +49,23 @@ public class RobotContainer {
   }
   boolean pressed = false;
   private void configureButtonBindings() {
-    // m_driverControllerTrigger.leftBumper().onTrue(new CMD_IntakeForward(m_intake))
-    // .onFalse(new CMD_IntakeHold(m_intake));
-    // m_driverControllerTrigger.rightBumper().onTrue(new CMD_IntakeReverse(m_intake))
-    // .onFalse(new CMD_IntakeHoldCube(m_intake));
-    // m_driverControllerTrigger.back().onTrue(new CMD_ArmSetOff(m_arm));
-    // m_driverControllerTrigger.a().onTrue(new CMD_IntakeHold(m_intake));
-    // m_driverControllerTrigger.povRight().onTrue(new CMD_ArmSetPosition(m_arm, 130));
+
 
     m_driverControllerTrigger.b().onTrue(new SequentialCommandGroup(//cancel
      new CMD_ArmSetOff(m_arm),
      new CMD_IntakeOff(m_intake)
     ));
 
-    m_driverControllerTrigger.leftTrigger().onTrue(new CMD_IntakeCone(m_arm, m_intake)//intake cones
-    ).onFalse(new CMD_HoldCone(m_intake, m_arm));//hold cones
+    m_driverControllerTrigger.a().onTrue(new CMD_ToggleIntakeState(m_intake));
 
-    m_driverControllerTrigger.rightTrigger().onTrue(new CMD_IntakeCube(m_arm, m_intake)//intake cubes
-    ).onFalse(new CMD_HoldCube(m_intake, m_arm));//hold cubes
+    m_driverControllerTrigger.leftTrigger().onTrue(new CMD_Intake(m_intake, m_arm, m_finiteStateMachine))
+    .onFalse(new CMD_Hold(m_intake, m_arm, m_finiteStateMachine));
 
     m_driverControllerTrigger.leftBumper().onTrue(new CMD_PlaceThirdLevel(m_arm, m_intake));
 
     m_driverControllerTrigger.rightBumper().onTrue(new CMD_PlaceSecondLevel(m_arm, m_intake));
-    // .onFalse(new CMD_Stow(m_arm, m_intake));
-    // if(m_driverController.getAButtonPressed()){
-    //   m_robotDrive.getWantedLength();
-    //   //use wanted length to drive
-    // }
 
-    // if(m_operatorController.getYButtonPressed()){
-    //   m_robotDrive.setWantedHeight(3);
-    // }
-
-    // if(m_operatorController.getXButtonPressed()){
-    //   m_robotDrive.setWantedHeight(2);
-    // }
-
-    // if(m_operatorController.getAButtonPressed()){
-    //   m_robotDrive.setWantedHeight(3);
-    // }
   }
-
-  // public void runXTest() {
-  //   if(m_driverController.getXButtonPressed()){
-  //     // new CMD_ArmSetOff(m_arm);
-  //     m_robotDrive.setX();
-  //   }
-  // }
 
     public void zeroGyroHeading() {
       m_robotDrive.zeroHeading();

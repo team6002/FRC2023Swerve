@@ -80,16 +80,16 @@ public class SUB_Intake extends SubsystemBase {
   @Override
   public void periodic(){
     // if we have a game piece, make the led strip sky blue colored
-    if(m_finiteStateMachine.getState() != RobotState.SCORING || m_finiteStateMachine.getState() != RobotState.BALANCING){
+    if(m_finiteStateMachine.getState() != RobotState.SCORING && m_finiteStateMachine.getState() != RobotState.BALANCING){
       if(m_intakeState == true){
         if(m_finiteStateMachine.getState() == RobotState.INTAKING/* && getSensor()*/){
-          m_blinkin.set(BlinkinConstants.kColor1Chaser);
+          m_blinkin.set(BlinkinConstants.kColor1Blink);
         }else{
           m_blinkin.set(BlinkinConstants.kYellow);
         }
       }else{
         if(m_finiteStateMachine.getState() == RobotState.INTAKING/* && getSensor()*/){
-          m_blinkin.set(BlinkinConstants.kColor2Chaser);
+          m_blinkin.set(BlinkinConstants.kColor2Blink);
         }else{
           m_blinkin.set(BlinkinConstants.kPurple);
         }
@@ -112,9 +112,9 @@ public class SUB_Intake extends SubsystemBase {
         }
     }
 
-    if(m_finiteStateMachine.getState() == RobotState.INTAKING && getSensor()){
-      m_finiteStateMachine.setState(RobotState.INTAKED);
-    }
+    // if(m_finiteStateMachine.getState() == RobotState.INTAKING && getSensor()){
+    //   m_finiteStateMachine.setState(RobotState.INTAKED);
+    // }
 
     SmartDashboard.putNumber("Amps", m_intakeMotor.getOutputCurrent());
     SmartDashboard.putBoolean("intake state", m_intakeState);

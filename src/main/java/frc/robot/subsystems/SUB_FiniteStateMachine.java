@@ -4,8 +4,10 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class SUB_FiniteStateMachine {
+public class SUB_FiniteStateMachine extends SubsystemBase {
 
     public enum RobotState 
     {
@@ -16,7 +18,7 @@ public class SUB_FiniteStateMachine {
         BALANCING,
     }
 
-    private RobotState m_currentState = RobotState.BALANCING;
+    private RobotState m_currentState = RobotState.HOME;
 
     public void setState(RobotState p_State) {
         m_currentState = p_State;
@@ -32,6 +34,11 @@ public class SUB_FiniteStateMachine {
 
     public RobotState getCurrentState(){
         return m_currentState;
+    }
+    
+    @Override
+    public void periodic(){
+        SmartDashboard.putString("robot state", getState().toString());
     }
 
 }

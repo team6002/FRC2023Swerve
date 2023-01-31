@@ -129,10 +129,10 @@ public final class Constants {
       public static final double kBalanced = .77;
       public static final double kYellow = 0.69;
       public static final double kPurple = .89;
-      public static final double kColor1Chaser = .01;
-      public static final double kColor2Chaser = .21;
-      public static final double kColor1Blink = .13;
-      public static final double kColor2Blink = .33;
+      public static final double kColor1Chaser = 0.01;
+      public static final double kColor2Chaser = 0.21;
+      public static final double kColor1Blink = -.01;
+      public static final double kColor2Blink = .19;
     }
 
     public static final class LimeLightConstants{

@@ -7,33 +7,37 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.SUB_Elevator;
 import frc.robot.subsystems.SUB_Intake;
+import frc.robot.subsystems.SUB_FiniteStateMachine.RobotState;
+import frc.robot.subsystems.SUB_FiniteStateMachine;
 
-public class CMD_IntakeCube extends CommandBase {
+public class CMD_Intake extends CommandBase {
   SUB_Elevator m_elevator;
   SUB_Intake m_intake;
-  public CMD_IntakeCube(SUB_Elevator p_elevator, SUB_Intake p_intake) {
+  SUB_FiniteStateMachine m_finiteStateMachine;
+  public CMD_Intake(SUB_Intake p_intake, SUB_Elevator p_elevator, SUB_FiniteStateMachine p_finiteStateMachine) {
     m_elevator = p_elevator;
     m_intake = p_intake;
+    m_finiteStateMachine = p_finiteStateMachine;
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_intake.setIntakeState(false);
-    m_intake.setIntakeReverse();
-    m_intake.setIntakeState(false);
-    m_elevator.setPosition(164);
+    m_finiteStateMachine.setState(RobotState.INTAKING);
+    m_elevator.setPosition(173);
+    m_intake.setIntakeCurrent();
+    if(m_intake.getIntakeState() == true){
+      m_intake.setIntakeForward();
+    }else{
+      m_intake.setIntakeReverse();
+    }
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {}
 
-  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {}
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return true;

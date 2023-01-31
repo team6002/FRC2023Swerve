@@ -26,7 +26,7 @@ import frc.robot.subsystems.SUB_LimeLight;
  */
 public class RobotContainer {
   // The robot's subsystems
-  private final SUB_Elevator m_arm = new SUB_Elevator();
+  private final SUB_Elevator m_elevator = new SUB_Elevator();
   private final SUB_Blinkin m_blinkin = new SUB_Blinkin();
   private final SUB_FiniteStateMachine m_finiteStateMachine = new SUB_FiniteStateMachine();
   private final SUB_LimeLight m_limeLight = new SUB_LimeLight(m_blinkin, m_finiteStateMachine);
@@ -49,51 +49,23 @@ public class RobotContainer {
   }
   boolean pressed = false;
   private void configureButtonBindings() {
-    // m_driverControllerTrigger.leftBumper().onTrue(new CMD_IntakeForward(m_intake))
-    // .onFalse(new CMD_IntakeHold(m_intake));
-    // m_driverControllerTrigger.rightBumper().onTrue(new CMD_IntakeReverse(m_intake))
-    // .onFalse(new CMD_IntakeHoldCube(m_intake));
-    // m_driverControllerTrigger.back().onTrue(new CMD_ArmSetOff(m_arm));
-    // m_driverControllerTrigger.a().onTrue(new CMD_IntakeHold(m_intake));
-    // m_driverControllerTrigger.povRight().onTrue(new CMD_ArmSetPosition(m_arm, 130));
+
 
     m_driverControllerTrigger.b().onTrue(new SequentialCommandGroup(//cancel
-     new CMD_ElevatorSetOff(m_arm),
+     new CMD_ElevatorSetOff(m_elevator),
      new CMD_IntakeOff(m_intake)
     ));
 
-    m_driverControllerTrigger.leftTrigger().whileTrue(new CMD_IntakeCone(m_arm, m_intake)//intake cones
-    ).whileFalse(new CMD_HoldCone(m_intake, m_arm));//hold cones
+    m_driverControllerTrigger.a().onTrue(new CMD_ToggleIntakeState(m_intake));
 
-    m_driverControllerTrigger.rightTrigger().whileTrue(new CMD_IntakeCube(m_arm, m_intake)//intake cubes
-    ).whileFalse(new CMD_HoldCube(m_intake, m_arm));//hold cubes
+    m_driverControllerTrigger.leftTrigger().onTrue(new CMD_Intake(m_intake, m_elevator, m_finiteStateMachine))
+    .onFalse(new CMD_Hold(m_intake, m_elevator, m_finiteStateMachine));
 
-    m_driverControllerTrigger.leftBumper().onTrue(new CMD_PlaceThirdLevel(m_arm, m_intake))
-    .onFalse(new CMD_Stow(m_arm, m_intake));
-    // if(m_driverController.getAButtonPressed()){
-    //   m_robotDrive.getWantedLength();
-    //   //use wanted length to drive
-    // }
+    m_driverControllerTrigger.leftBumper().onTrue(new CMD_PlaceThirdLevel(m_elevator, m_intake));
 
-    // if(m_operatorController.getYButtonPressed()){
-    //   m_robotDrive.setWantedHeight(3);
-    // }
+    m_driverControllerTrigger.rightBumper().onTrue(new CMD_PlaceSecondLevel(m_elevator, m_intake));
 
-    // if(m_operatorController.getXButtonPressed()){
-    //   m_robotDrive.setWantedHeight(2);
-    // }
-
-    // if(m_operatorController.getAButtonPressed()){
-    //   m_robotDrive.setWantedHeight(3);
-    // }
   }
-
-  // public void runXTest() {
-  //   if(m_driverController.getXButtonPressed()){
-  //     // new CMD_ArmSetOff(m_arm);
-  //     m_robotDrive.setX();
-  //   }
-  // }
 
     public void zeroGyroHeading() {
       m_robotDrive.zeroHeading();

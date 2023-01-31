@@ -7,27 +7,26 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.SUB_Intake;
 
-public class CMD_IntakeHoldCube extends CommandBase {
+public class CMD_ToggleIntakeState extends CommandBase {
   SUB_Intake m_intake;
-  public CMD_IntakeHoldCube(SUB_Intake p_intake) {
+  public CMD_ToggleIntakeState(SUB_Intake p_intake) {
     m_intake = p_intake;
   }
 
   @Override
   public void initialize() {
-    m_intake.setHoldCurrent();
-    m_intake.setPower(-0.07);
+    if(m_intake.getIntakeState() == true){
+      m_intake.setIntakeState(false);
+    }else{
+      m_intake.setIntakeState(true);
+    }
   }
 
   @Override
-  public void execute() {
-
-  }
+  public void execute() {}
 
   @Override
-  public void end(boolean interrupted) {
-
-  }
+  public void end(boolean interrupted) {}
 
   @Override
   public boolean isFinished() {

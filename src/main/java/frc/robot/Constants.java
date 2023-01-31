@@ -181,4 +181,12 @@ public final class Constants {
         public static final double kElevatorOffset = -.487;
         public static final double kPowerLimit = .2;
       }
+
+      public static final class ElbowConstants{
+        public static final int kElbowMotorCanID = 17;
+      }
+
+      public static final class WristConstants{
+        public static final int kWristMotorCanID = 16;
+      }
     }

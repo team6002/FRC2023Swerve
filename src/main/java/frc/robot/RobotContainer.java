@@ -10,12 +10,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.*;
-import frc.robot.subsystems.SUB_Elevator;
-import frc.robot.subsystems.SUB_Blinkin;
-import frc.robot.subsystems.SUB_Drivetrain;
-import frc.robot.subsystems.SUB_FiniteStateMachine;
-import frc.robot.subsystems.SUB_Intake;
-import frc.robot.subsystems.SUB_LimeLight;
+import frc.robot.subsystems.*;
 
 
 /*
@@ -26,6 +21,8 @@ import frc.robot.subsystems.SUB_LimeLight;
  */
 public class RobotContainer {
   // The robot's subsystems
+  private final SUB_Elbow m_elbow = new SUB_Elbow();
+  private final SUB_Wrist m_wrist = new SUB_Wrist();
   private final SUB_Elevator m_elevator = new SUB_Elevator();
   private final SUB_Blinkin m_blinkin = new SUB_Blinkin();
   private final SUB_FiniteStateMachine m_finiteStateMachine = new SUB_FiniteStateMachine();

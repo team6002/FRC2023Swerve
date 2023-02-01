@@ -17,8 +17,8 @@ public class CMD_PlaceSecondLevel extends SequentialCommandGroup {
     m_intake = p_intake;
     
     addCommands(
-      new CMD_ArmSetPosition(m_arm, 88),
-      new CMD_ArmCheck(m_arm, 88),
+      new CMD_ArmSetPosition(m_arm, 105),
+      new CMD_ArmCheck(m_arm, 105),
       new CMD_DropItem(m_intake),
       new WaitCommand(1),
       new CMD_Stow(m_arm, m_intake)

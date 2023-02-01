@@ -24,7 +24,7 @@ public class CMD_Hold extends CommandBase {
   public void initialize() {
     m_finiteStateMachine.setState(RobotState.INTAKED);
     m_intake.setHoldCurrent();
-    m_arm.setPosition(90);
+    m_arm.setPosition(105);
     if(m_intake.getIntakeState() == true){
       m_intake.setPower(0.07);
     }else{

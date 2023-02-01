@@ -32,7 +32,7 @@ public class CMD_ArmCheck extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (m_arm.getPosition() >= m_wantedPosition - 3 && m_arm.getPosition() <= m_wantedPosition + 3 ){
+    if (m_arm.getPosition() >= m_wantedPosition - 3 && m_arm.getPosition() <= m_wantedPosition + 5){
       return true;
     }
     return false;

@@ -46,13 +46,13 @@ public class SUB_Arm extends SubsystemBase {
       m_armMotorPIDController.setSmartMotionMaxVelocity(20, 1);
       m_armMotorPIDController.setSmartMotionMaxAccel(10, 1);
       m_armMotorPIDController.setSmartMotionMinOutputVelocity(0, 1);
-      m_armMotorPIDController.setSmartMotionAllowedClosedLoopError(5, 1);
+      m_armMotorPIDController.setSmartMotionAllowedClosedLoopError(1, 1);
       m_armMotorPIDController.setSmartMotionAccelStrategy(SparkMaxPIDController.AccelStrategy.kTrapezoidal, 1);
 
-      m_armMotorPIDController.setP(0.000001,2);
+      m_armMotorPIDController.setP(0.004,2);
       m_armMotorPIDController.setI(0,2);
       m_armMotorPIDController.setD(0,2);
-      m_armMotorPIDController.setFF(0.005,2);
+      m_armMotorPIDController.setFF(0.00004,2);
       m_armMotorPIDController.setOutputRange(-1, 1, 2);
       m_armMotorPIDController.setSmartMotionMaxVelocity(10, 2);
       m_armMotorPIDController.setSmartMotionMinOutputVelocity(0, 2);
@@ -68,24 +68,24 @@ public class SUB_Arm extends SubsystemBase {
     // }
     public void setPosition(double p_reference){
       m_wantedPosition = p_reference;
-      if(p_reference > 100){
+      if(p_reference > 125){
         m_armMotorPIDController.setP(0.00355,1);
         m_armMotorPIDController.setI(0,1);
         m_armMotorPIDController.setD(0,1);
-        m_armMotorPIDController.setFF(0.005,1);
+        m_armMotorPIDController.setFF(0.00025,1);
         m_armMotorPIDController.setSmartMotionMaxVelocity(20, 1);
         m_armMotorPIDController.setSmartMotionMaxAccel(20, 1);
         m_wantedSlot = 1;
-        m_armMotorPIDController.setReference(p_reference, CANSparkMax.ControlType.kSmartMotion,1);
+        m_armMotorPIDController.setReference(p_reference, CANSparkMax.ControlType.kPosition,1);
       }else{
         m_wantedSlot = 2;
-        m_armMotorPIDController.setP(m_arm_down_p,2);
+        m_armMotorPIDController.setP(0.004,2);
         m_armMotorPIDController.setI(0,2);
         m_armMotorPIDController.setD(m_arm_down_d,2);
-        m_armMotorPIDController.setFF(m_arm_down_f,2);
+        m_armMotorPIDController.setFF(0.0000,2);
         m_armMotorPIDController.setSmartMotionMaxVelocity(10, 2);
         m_armMotorPIDController.setSmartMotionMaxAccel(2.5, 2);
-        m_armMotorPIDController.setReference(p_reference, CANSparkMax.ControlType.kSmartMotion, 2);
+        m_armMotorPIDController.setReference(p_reference, CANSparkMax.ControlType.kPosition, 2);
       }
     } 
     public double getPosition(){

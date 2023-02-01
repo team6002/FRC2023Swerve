@@ -23,7 +23,7 @@ public class CMD_Intake extends CommandBase {
   @Override
   public void initialize() {
     m_finiteStateMachine.setState(RobotState.INTAKING);
-    m_arm.setPosition(173);
+    m_arm.setPosition(171);
     m_intake.setIntakeCurrent();
     if(m_intake.getIntakeState() == true){
       m_intake.setIntakeForward();

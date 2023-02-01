@@ -45,7 +45,7 @@ public class RobotContainer {
     configureButtonBindings();
 
     // Configure default commands
-    // m_robotDrive.setDefaultCommand(new CMD_DriveCommand(m_robotDrive, m_driverControllerTrigger));
+    m_robotDrive.setDefaultCommand(new CMD_DriveCommand(m_robotDrive, m_driverControllerTrigger));
   }
   boolean pressed = false;
   private void configureButtonBindings() {

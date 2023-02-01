@@ -20,7 +20,7 @@ public class CMD_ElbowSetPosition extends CommandBase {
 
   @Override
   public void initialize() {
-    m_elbow.setElbowReference(m_position);
+    m_elbow.setReference(m_position);
   }
 
   @Override

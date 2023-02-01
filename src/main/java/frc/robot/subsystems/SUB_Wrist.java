@@ -29,6 +29,14 @@ public class SUB_Wrist extends SubsystemBase {
         m_wristEncoder.setInverted(true);
     }
 
+    public void setReference(double p_reference){
+        m_wristMotorPIDController.setReference(p_reference, ControlType.kPosition);
+    }
+
+    public double getWristPosition(){
+        return m_wristEncoder.getPosition();
+    }
+
     @Override
     public void periodic() {
         telemetry();
@@ -36,13 +44,5 @@ public class SUB_Wrist extends SubsystemBase {
 
     public void telemetry(){
         SmartDashboard.putNumber("position", m_wristEncoder.getPosition());
-    }
-
-    public void setWristReference(double p_reference){
-        m_wristMotorPIDController.setReference(p_reference, ControlType.kPosition);
-    }
-
-    public double getWristPosition(){
-        return m_wristEncoder.getPosition();
     }
 }

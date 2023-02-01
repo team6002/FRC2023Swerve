@@ -55,12 +55,12 @@ public class RobotContainer {
 
     m_driverControllerTrigger.a().onTrue(new CMD_ToggleIntakeState(m_intake));
 
-    m_driverControllerTrigger.leftTrigger().onTrue(new CMD_Intake(m_intake, m_elevator, m_finiteStateMachine))
-    .onFalse(new CMD_Hold(m_intake, m_elevator, m_finiteStateMachine));
+    m_driverControllerTrigger.leftTrigger().onTrue(new CMD_Intake(m_intake, m_elevator, m_finiteStateMachine, m_elbow, m_wrist))
+    .onFalse(new CMD_Hold(m_intake, m_elevator, m_finiteStateMachine, m_elbow, m_wrist));
 
-    m_driverControllerTrigger.leftBumper().onTrue(new CMD_PlaceThirdLevel(m_elevator, m_intake));
+    m_driverControllerTrigger.leftBumper().onTrue(new CMD_PlaceThirdLevel(m_elevator, m_intake, m_elbow, m_wrist));
 
-    m_driverControllerTrigger.rightBumper().onTrue(new CMD_PlaceSecondLevel(m_elevator, m_intake));
+    m_driverControllerTrigger.rightBumper().onTrue(new CMD_PlaceSecondLevel(m_elevator, m_intake, m_elbow,  m_wrist));
 
   }
 

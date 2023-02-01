@@ -29,6 +29,14 @@ public class SUB_Elbow extends SubsystemBase {
         m_elbowEncoder.setInverted(true);
     }
 
+    public void setReference(double p_reference){
+        m_elbowMotorPIDController.setReference(p_reference, ControlType.kPosition);
+    }
+
+    public double getElbowPosition(){
+        return m_elbowEncoder.getPosition();
+    }
+
     @Override
     public void periodic() {
         telemetry();
@@ -36,13 +44,5 @@ public class SUB_Elbow extends SubsystemBase {
 
     public void telemetry(){
         SmartDashboard.putNumber("position", m_elbowEncoder.getPosition());
-    }
-
-    public void setElbowReference(double p_reference){
-        m_elbowMotorPIDController.setReference(p_reference, ControlType.kPosition);
-    }
-
-    public double getElbowPosition(){
-        return m_elbowEncoder.getPosition();
     }
 }
